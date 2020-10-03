@@ -36,6 +36,10 @@ envim() {
     nvim ~/.config/nvim/init.vim
 }
 
+config_check() {
+    sh ~/Documents/config/scripts/config_check.sh "$@"
+}
+
 track() {
     bash "/home/catalin/Documents/projects/p_tracker/scripts/track.sh" "$@"
 }
