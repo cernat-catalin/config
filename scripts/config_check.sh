@@ -29,6 +29,8 @@ move_from_local_to_repo() {
     echo "===== Neovim ===== "
     (set -x; cp -r ${NVIM_FOLDER}/ftplugin ${REPO_FOLDER}/nvim)
     (set -x; cp -r ${NVIM_FOLDER}/spell ${REPO_FOLDER}/nvim)
+    (set -x; cp -r ${NVIM_FOLDER}/settings ${REPO_FOLDER}/nvim)
+    (set -x; cp -r ${NVIM_FOLDER}/plug-config ${REPO_FOLDER}/nvim)
     (set -x; cp ${NVIM_FOLDER}/init.vim ${REPO_FOLDER}/nvim)
 
     echo "===== Tmux ====="
@@ -44,6 +46,8 @@ move_from_repo_to_local() {
     echo "===== Neovim ====="
     (set -x; cp -r ${REPO_FOLDER}/nvim/ftplugin ${NVIM_FOLDER})
     (set -x; cp -r ${REPO_FOLDER}/nvim/spell ${NVIM_FOLDER})
+    (set -x; cp -r ${REPO_FOLDER}/nvim/settings ${NVIM_FOLDER})
+    (set -x; cp -r ${REPO_FOLDER}/nvim/plug-config ${NVIM_FOLDER})
     (set -x; cp ${REPO_FOLDER}/nvim/init.vim ${NVIM_FOLDER})
 
     echo "===== Tmux ====="
@@ -59,6 +63,8 @@ diff_local_and_repo() {
     echo "===== Neovim ===== "
     (set -x; diff ${NVIM_FOLDER}/ftplugin ${REPO_FOLDER}/nvim/ftplugin)
     (set -x; diff ${NVIM_FOLDER}/spell ${REPO_FOLDER}/nvim/spell)
+    (set -x; diff ${NVIM_FOLDER}/settings ${REPO_FOLDER}/nvim/settings)
+    (set -x; diff ${NVIM_FOLDER}/plug-config ${REPO_FOLDER}/nvim/plug-config)
     (set -x; diff ${NVIM_FOLDER}/init.vim ${REPO_FOLDER}/nvim/init.vim)
 
     echo "===== Tmux ====="
