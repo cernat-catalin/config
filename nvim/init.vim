@@ -28,6 +28,7 @@ call plug#end()
 
 source $HOME/.config/nvim/settings/general.vim
 source $HOME/.config/nvim/settings/colorscheme.vim
+source $HOME/.config/nvim/settings/functions.vim
 source $HOME/.config/nvim/plug-config/vimwiki.vim
 source $HOME/.config/nvim/plug-config/which-key.vim
 
