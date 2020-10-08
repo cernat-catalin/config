@@ -39,10 +39,14 @@ let g:which_key_map['w'] = {
 
 let g:which_key_map['s'] = {
             \ 'name' : '+search' ,
-            \ 'f' : [':Files', 'File search'],
-            "\ 'F' : ['', 'File search insert'],
-            \ 'c' : [':ZettelOpen', 'Content search'],
-            \ 'C' : [':ZettelSearch', 'Content Search insert'],
+            \ 'f' : [':CustomOpenFileSearch', 'File search'],
+            \ 'c' : [':CustomOpenContentSearch', 'Content search'],
+            \ }
+
+let g:which_key_map['n'] = {
+            \ 'name' : '+new' ,
+            \ 'z' : [':CustomNewZettel', 'New zettel'],
+            \ 'd' : [':CustomNewDaily', 'New daily'],
             \ }
 
 

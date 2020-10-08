@@ -113,7 +113,7 @@ endfunction
 
 " Create a new custom daily wiki entry
 function! s:custom_new_daily()
-    let filename = "daily_" . strftime("%y%m%d-%H%M") . '.md'
+    let filename = "daily_" . strftime("%y%m%d") . '.md'
     let wiki_not_exists = s:wiki_file_not_exists(filename)
 
     call vimwiki#base#open_link(':e ', filename)
@@ -130,4 +130,4 @@ command! -bang CustomOpenContentSearch call s:custom_open_content_search()
 command! -bang CustomInsertContentSearch call s:custom_insert_content_search()
 command! -bang CustomOpenFileSearch call s:custom_open_file_search()
 command! -bang CustomNewZettel call s:custom_new_zettel()
-command! -bang CustomeNewDaily call s:custom_new_daily()
+command! -bang CustomNewDaily call s:custom_new_daily()
