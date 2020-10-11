@@ -24,16 +24,6 @@ function! s:current_state()
                 \ }
 endfunction
 
-function! s:insert_search(line)
-    let result_location = s:search_result_location(a:line)
-    let state = s:current_state()
-    let c_line = state['line']
-    let c_col = state['column']
-    let line = getline('.')
-
-    call setline('.', strpart(line, 0, c_col))
-endfunction
-
 " Check if a file does not exist in the wiki
 function! s:wiki_file_not_exists(filename)
     let link_info = vimwiki#base#resolve_link(a:filename)
@@ -71,6 +61,23 @@ function! s:open_file_file_search(search_result)
 endfunction
 
 
+function! s:insert_content_search_link(search_result)
+    let result_location = s:search_result_location(a:search_result)
+    let state = s:current_state()
+
+    let wikiname = fnamemodify(result_location['relative_path'], ':r') 
+    let c_line = state['line']
+    let c_col = state['column']
+    let line = getline('.')
+
+    call setline('.', strpart(line, 0, c_col) . "[ref](" . wikiname . ")" . strpart(line, c_col))
+
+    let c_pos = getpos('.')
+    let c_pos[2] = c_pos[2] + 2
+    call setpos('.', c_pos)
+
+endfunction
+
 " ===== Command Functions =====
 
 function! s:custom_open_file_search()
@@ -85,9 +92,9 @@ endfunction
 
 
 " TODO: Not working at all
-function! s:custom_insert_content_search()
+function! s:custom_insert_content_search_link()
     call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case .', 1,
-                \ fzf#vim#with_preview({'sink': function('s:insert_search'), 'options': '--delimiter : --nth 4..'}))
+                \ fzf#vim#with_preview({'sink': function('s:insert_content_search_link'), 'options': '--delimiter : --nth 4..'}))
 endfunction
 
 
@@ -127,7 +134,7 @@ endfunction
 
 
 command! -bang CustomOpenContentSearch call s:custom_open_content_search()
-command! -bang CustomInsertContentSearch call s:custom_insert_content_search()
+command! -bang CustomInsertContentSearch call s:custom_insert_content_search_link()
 command! -bang CustomOpenFileSearch call s:custom_open_file_search()
 command! -bang CustomNewZettel call s:custom_new_zettel()
 command! -bang CustomNewDaily call s:custom_new_daily()

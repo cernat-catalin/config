@@ -41,6 +41,7 @@ let g:which_key_map['s'] = {
             \ 'name' : '+search' ,
             \ 'f' : [':CustomOpenFileSearch', 'File search'],
             \ 'c' : [':CustomOpenContentSearch', 'Content search'],
+            \ 'C' : [':CustomInsertContentSearch', 'Insert content search'],
             \ }
 
 let g:which_key_map['n'] = {
