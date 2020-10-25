@@ -18,7 +18,8 @@ call plug#begin()
     Plug 'junegunn/fzf'
     Plug 'junegunn/fzf.vim'
 
-    " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+    " Completion
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
     " Key suggestions when pressing leader
     Plug 'liuchengxu/vim-which-key'
@@ -30,6 +31,7 @@ source $HOME/.config/nvim/settings/colorscheme.vim
 source $HOME/.config/nvim/settings/functions.vim
 source $HOME/.config/nvim/plug-config/vimwiki.vim
 source $HOME/.config/nvim/plug-config/which-key.vim
+source $HOME/.config/nvim/plug-config/coc.vim
 
 
 " ===== Other settings =====
