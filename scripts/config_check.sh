@@ -2,6 +2,7 @@ REPO_FOLDER=$(cd "$(dirname "${BASH_SOURCE[0]}")" ; cd .. ; pwd -P)
 NVIM_FOLDER=$(eval echo "~/.config/nvim")
 TMUX_FOLDER=$(eval echo "~")
 ZSH_FOLDER=$(eval echo "~")
+I3WM_FOLDER=$(eval echo "~/.i3")
 
 
 CONFIRMED=0
@@ -14,6 +15,7 @@ ask_for_confirmation() {
         CONFIRMED=0
     fi
 }
+
 
 INPUT_MESSAGE=""
 ask_for_message() {
@@ -38,7 +40,11 @@ move_from_local_to_repo() {
 
     echo "===== Zsh ====="
     (set -x; cp ${ZSH_FOLDER}/.zshrc ${REPO_FOLDER}/zsh)
+
+    echo "===== I3WM ====="
+    (set -x; cp ${I3WM_FOLDER}/config ${REPO_FOLDER}/i3wm)
 }
+
 
 move_from_repo_to_local() {
     echo -e "\nMoving configuration files from repository to local..."
@@ -55,7 +61,11 @@ move_from_repo_to_local() {
 
     echo "===== Zsh ====="
     (set -x; cp ${REPO_FOLDER}/zsh/.zshrc ${ZSH_FOLDER})
+
+    echo "===== I3WM ====="
+    (set -x; cp ${REPO_FOLDER}/i3wm/config ${I3WM_FOLDER})
 }
+
 
 diff_local_and_repo() {
     echo -e "\nDoing a diff between local and repository..."
@@ -72,6 +82,9 @@ diff_local_and_repo() {
 
     echo "===== Zsh ====="
     (set -x; diff ${ZSH_FOLDER}/.zshrc ${REPO_FOLDER}/zsh/.zshrc)
+
+    echo "===== I3WM ====="
+    (set -x; diff ${I3WM_FOLDER}/config ${REPO_FOLDER}/i3wm/config)
 }
 
 
@@ -89,7 +102,6 @@ commit_and_push() {
         echo "There are no changes to commit and push"
     fi
 }
-
 
 
 if [[ ${1} == "local_to_repo" ]]; then
