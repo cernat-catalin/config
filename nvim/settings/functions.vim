@@ -17,6 +17,7 @@ endfunction
 function! s:current_state()
     return {
                 \ "path": expand('%:p'),
+                \ "directory": expand('%:p:h'),
                 \ "filename": expand('%:t'),
                 \ "extension": expand('%:e'),
                 \ "line":  line('.'),
@@ -28,6 +29,30 @@ endfunction
 function! s:wiki_file_not_exists(filename)
     let link_info = vimwiki#base#resolve_link(a:filename)
     return empty(glob(link_info.filename)) 
+endfunction
+
+function! s:list_all_zettels()
+    " Get current folder
+    let state = s:current_state()
+
+    " Create new file
+    execute ':new scratch.md'
+    setlocal buftype=nofile
+    "setlocal filetype=vimwiki
+
+    " Search for all zettel files with title
+    let text = system("rg --multiline -e '---\ntitle: ([^\n]+)+\n' " . state['directory'] . " -r '$1'")
+
+    call setline(1, '# Zettel notes')
+    call setline(2, '')
+    let line = 3
+    for x in split(text, '\n')
+        let tokens = split(x, ':')
+        let file = split(tokens[0], '/')[-1]
+        let title = tokens[1]
+        call setline(line, '* [' . title . '](' . file . ')')
+        let line += 1
+    endfor
 endfunction
 
 
@@ -86,8 +111,8 @@ function! s:custom_open_file_search()
 endfunction
 
 function! s:custom_open_content_search()
-    call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case .', 1,
-                \ fzf#vim#with_preview({'sink': function('s:open_file_content_search'), 'options': '--delimiter : --nth 4..'}))
+    call fzf#vim#grep('rg --column --line-number --no-heading --color=always --smart-case .', 2,
+                \ fzf#vim#with_preview({'sink': function('s:open_file_content_search'), 'options': '--exact --delimiter : --nth 4..'}))
 endfunction
 
 
@@ -138,3 +163,4 @@ command! -bang CustomInsertContentSearch call s:custom_insert_content_search_lin
 command! -bang CustomOpenFileSearch call s:custom_open_file_search()
 command! -bang CustomNewZettel call s:custom_new_zettel()
 command! -bang CustomNewDaily call s:custom_new_daily()
+command! -bang ListAllZettels call s:list_all_zettels()

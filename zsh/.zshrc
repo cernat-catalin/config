@@ -37,7 +37,7 @@ envim() {
 }
 
 config_check() {
-    sh ~/Documents/config/scripts/config_check.sh "$@"
+    bash ~/Documents/config/scripts/config_check.sh "$@"
 }
 
 track() {

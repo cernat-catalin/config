@@ -1,3 +1,5 @@
+#!/bin/bash
+
 REPO_FOLDER=$(cd "$(dirname "${BASH_SOURCE[0]}")" ; cd .. ; pwd -P)
 NVIM_FOLDER=$(eval echo "~/.config/nvim")
 TMUX_FOLDER=$(eval echo "~")

@@ -23,6 +23,9 @@ call plug#begin()
 
     " Key suggestions when pressing leader
     Plug 'liuchengxu/vim-which-key'
+
+    " Copy images to markdown
+    Plug 'ferrine/md-img-paste.vim'
 call plug#end()
 
 
@@ -45,6 +48,21 @@ map <F2> :NERDTreeToggle<CR>
 " Exit terminal mode with ESC
 tmap <ESC> <C-\><C-n>
 
-let g:python3_host_prog = '~/anaconda3/bin/python'
+"let g:python3_host_prog = '~/miniconda3/bin/python'
 
 let g:airline_theme='bubblegum'
+
+
+autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
+" there are some defaults for image directory and image name, you can change them
+" let g:mdip_imgdir = 'img'
+" let g:mdip_imgname = 'image'
+"
+
+function! g:Open_browser(url)
+    silent exec "!firefox -new-window " . a:url . " &"
+endfunction
+
+let g:mkdp_browserfunc = 'g:Open_browser'
+
+

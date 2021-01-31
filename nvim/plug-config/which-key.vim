@@ -50,6 +50,10 @@ let g:which_key_map['n'] = {
             \ 'd' : [':CustomNewDaily', 'New daily'],
             \ }
 
+let g:which_key_map['m'] = {
+            \ 'name' : '+markdown' ,
+            \ 'p' : [':MarkdownPreview', 'Markdown preview'],
+            \ }
 
 " Register which key map
 call which_key#register('<Space>', "g:which_key_map")
