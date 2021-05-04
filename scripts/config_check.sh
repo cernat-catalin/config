@@ -1,4 +1,5 @@
 #!/bin/bash
+# Rewrite in a sane language if you want to improve this !!!!
 
 REPO_FOLDER=$(cd "$(dirname "${BASH_SOURCE[0]}")" ; cd .. ; pwd -P)
 NVIM_FOLDER=$(eval echo "~/.config/nvim")

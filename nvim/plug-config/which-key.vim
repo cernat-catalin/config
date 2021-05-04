@@ -26,13 +26,16 @@ let g:which_key_map['w'] = {
             \ 'name' : '+wiki' ,
             \ 'w' : 'Wiki Index',
             \ 't' : 'Wiki Index - new tab',
-            \ 's' : 'List and select wiki',
             \ 'd' : 'Delete wiki page',
             \ 'r' : 'Rename wiki page',
-            \ 'n' : [':ZettelNew', 'New Zettel note'],
+            \ 'l' : [':ListAllZettels', 'List all zettels'],
+            \ 'z' : [':CustomNewZettel', 'New zettel'],
+            \ 's' : [':OpenLastScratch', 'Open last scratch'],
+            \ 'S' : [':NewScratch', 'New sratch'],
+            \ 'hh': 'which_key_ignore',
             \ 'i' : 'which_key_ignore',
             \ 'h' : 'which_key_ignore',
-            \ 'hh' : 'which_key_ignore',
+            \ 'n' : 'which_key_ignore',
             \ ' ' : { 'name': 'which_key_ignore' }
             \ }
 
@@ -44,15 +47,11 @@ let g:which_key_map['s'] = {
             \ 'C' : [':CustomInsertContentSearch', 'Insert content search'],
             \ }
 
-let g:which_key_map['n'] = {
-            \ 'name' : '+new' ,
-            \ 'z' : [':CustomNewZettel', 'New zettel'],
-            \ 'd' : [':CustomNewDaily', 'New daily'],
-            \ }
-
 let g:which_key_map['m'] = {
             \ 'name' : '+markdown' ,
             \ 'p' : [':MarkdownPreview', 'Markdown preview'],
+            \ 's' : [':set spell!', 'Toggle spellcheck'],
+            \ 'h' : [':InsertDashes', 'Insert Dashes'],
             \ }
 
 " Register which key map

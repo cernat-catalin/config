@@ -74,6 +74,23 @@ notes() {
     nvim -c 'VimwikiIndex'
 }
 
+notes_html() {
+    PROJECT_DIRECTORY=/home/catalin/Documents/projects/js_notes_to_html
+    INPUT_DIRECTORY=/home/catalin/vimwiki
+    OUTPUT_DIRECTORY=/home/catalin/Documents/html_notes
+    START=`date +%s.%N`
+
+    npm --prefix ${PROJECT_DIRECTORY} run compile:markdown -- --input_directory=${INPUT_DIRECTORY} --output_directory=${OUTPUT_DIRECTORY}
+
+    END=`date +%s.%N`
+    RUNTIME=$( echo "$END- $START" | bc -l )
+    echo "Converted notes in ${RUNTIME} seconds"
+}
+
+notes_view() {
+    INDEX_PAGE=/home/catalin/Documents/html_notes/index.html
+    firefox ${INDEX_PAGE}
+}
 
 ##### Conda #####
 

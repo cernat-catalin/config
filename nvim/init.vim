@@ -1,6 +1,6 @@
 call plug#begin()
     " Colorscheme
-    Plug 'christianchiarulli/nvcode.vim'
+    Plug 'reedes/vim-colors-pencil'
     " Bottom status bar
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
@@ -47,10 +47,6 @@ map <F2> :NERDTreeToggle<CR>
 
 " Exit terminal mode with ESC
 tmap <ESC> <C-\><C-n>
-
-"let g:python3_host_prog = '~/miniconda3/bin/python'
-
-let g:airline_theme='bubblegum'
 
 
 autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
