@@ -1,10 +1,19 @@
 ##### Config #####
 
+
+UNAME_OUTPUT="$(uname -s)"
+case "${UNAME_OUTPUT}" in
+    Linux*)     MACHINE=Linux;;
+    Darwin*)    MACHINE=Mac;;
+    CYGWIN*)    MACHINE=Cygwin;;
+    MINGW*)     MACHINE=MinGw;;
+    *)          MACHINE="UNKNOWN:${UNAME_OUTPUT}"
+esac
+
+
 export ZSH=$HOME/.oh-my-zsh
 
 ZSH_THEME="dieter"
-
-plugins=(git tmux)
 
 source $ZSH/oh-my-zsh.sh
 alias tmux="env TERM=xterm-256color tmux -2"
@@ -110,3 +119,9 @@ fi
 unset __conda_setup
 
 export BROWSER="/usr/bin/firefox"
+
+# If on MacOS (M1) add homebrew binaries to path
+if [[ ${MACHINE} == "Mac" ]]; then
+    echo "Hello from mac"
+    export PATH="/opt/homebrew/bin:$PATH"
+fi

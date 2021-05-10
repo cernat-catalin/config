@@ -7,6 +7,15 @@ TMUX_FOLDER=$(eval echo "~")
 ZSH_FOLDER=$(eval echo "~")
 I3WM_FOLDER=$(eval echo "~/.i3")
 
+UNAME_OUTPUT="$(uname -s)"
+case "${UNAME_OUTPUT}" in
+    Linux*)     MACHINE=Linux;;
+    Darwin*)    MACHINE=Mac;;
+    CYGWIN*)    MACHINE=Cygwin;;
+    MINGW*)     MACHINE=MinGw;;
+    *)          MACHINE="UNKNOWN:${UNAME_OUTPUT}"
+esac
+
 
 CONFIRMED=0
 ask_for_confirmation() {
