@@ -50,15 +50,14 @@ tmap <ESC> <C-\><C-n>
 
 
 autocmd FileType markdown nmap <buffer><silent> <leader>p :call mdip#MarkdownClipboardImage()<CR>
-" there are some defaults for image directory and image name, you can change them
-" let g:mdip_imgdir = 'img'
-" let g:mdip_imgname = 'image'
-"
+" There are some defaults for image directory and image name, you can change them
+let g:mdip_imgdir = 'img'
+let g:mdip_imgname = 'image'
 
+
+" Change default browser behaviour for markdown-preview
 function! g:Open_browser(url)
     silent exec "!firefox -new-window " . a:url . " &"
 endfunction
 
 let g:mkdp_browserfunc = 'g:Open_browser'
-
-
