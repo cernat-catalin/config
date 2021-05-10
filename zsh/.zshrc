@@ -12,19 +12,16 @@ esac
 
 
 export ZSH=$HOME/.oh-my-zsh
-
 ZSH_THEME="dieter"
-
 source $ZSH/oh-my-zsh.sh
 alias tmux="env TERM=xterm-256color tmux -2"
-
 stty -ixon
+
+export ANDROID_SDK_ROOT=/home/catalin/Android/Sdk
+export BROWSER="/usr/bin/firefox"
 
 local pwd="%{$fg[red]%}%c%{$reset_color%}"
 PROMPT='${time} ${pwd} $(git_prompt_info)'
-
-
-export ANDROID_SDK_ROOT=/home/catalin/Android/Sdk
 
 PATH=$PATH:~/.local/bin
 PATH=$PATH:~/.poetry/bin
@@ -46,7 +43,7 @@ envim() {
 }
 
 config_check() {
-    bash ~/Documents/config/scripts/config_check.sh "$@"
+    bash ~/Documents/projects/config/scripts/config_check.sh "$@"
 }
 
 track() {
@@ -78,12 +75,46 @@ cppr() {
 }
 
 
+##### Notes #####
+
+
 notes() {
-    cd ~/vimwiki
-    nvim -c 'VimwikiIndex'
+
+    if [[ $# -eq 0 ]]; then
+        # No parameters passed. Open notes
+        cd ~/vimwiki
+        nvim -c 'VimwikiIndex'
+    elif [[ ${1} == "pull" ]]; then
+        cd ~/vimwiki
+        git pull
+    elif [[ ${1} == "push" ]]; then
+        _notes_push ${2}
+    elif [[ ${1} == "html" ]]; then
+        _notes_html
+        if [[ $# -eq 1 ]]; then
+            _notes_view
+        fi
+    elif [[ ${1} == "view" ]]; then
+        _notes_view
+    else
+        echo "Not a valid option"
+    fi
 }
 
-notes_html() {
+_notes_push() {
+    cd ~/vimwiki
+
+    commit_message="Notes default commit message"
+    if [[ $# == 1 ]]; then
+        commit_message="${1}"
+    fi
+
+    git add .
+    git commit -m "${commit_message}"
+    git push
+}
+
+_notes_html() {
     PROJECT_DIRECTORY=/home/catalin/Documents/projects/js_notes_to_html
     INPUT_DIRECTORY=/home/catalin/vimwiki
     OUTPUT_DIRECTORY=/home/catalin/Documents/html_notes
@@ -96,15 +127,13 @@ notes_html() {
     echo "Converted notes in ${RUNTIME} seconds"
 }
 
-notes_view() {
+_notes_view() {
     INDEX_PAGE=/home/catalin/Documents/html_notes/index.html
     firefox ${INDEX_PAGE}
 }
 
+
 ##### Conda #####
-
-
-# >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/home/catalin/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
@@ -117,8 +146,6 @@ else
     fi
 fi
 unset __conda_setup
-
-export BROWSER="/usr/bin/firefox"
 
 # If on MacOS (M1) add homebrew binaries to path
 if [[ ${MACHINE} == "Mac" ]]; then
