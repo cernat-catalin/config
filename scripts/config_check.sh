@@ -100,6 +100,11 @@ diff_local_and_repo() {
 }
 
 
+repo_pull() {
+    echo -e "\nPulling from remote"
+    (set -x; cd ${REPO_FOLDER}; git pull)
+}
+
 commit_and_push() {
     echo -e "\nPerforming commit and push in the repository"
     GIT_STATUS_OUTPUT=$(set -x; cd ${REPO_FOLDER}; git status --porcelain)
@@ -137,6 +142,7 @@ elif [[ ${1} == "repo_to_local" ]]; then
     echo "Repository to local"
     ask_for_confirmation "\nYou are you sure you want to override local files with repository versions?"
     if [[ ${CONFIRMED} ]]; then
+        repo_pull
         move_from_repo_to_local
         echo -e "\nDone!"
     else
