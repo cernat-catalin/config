@@ -89,13 +89,12 @@ notes() {
         git pull
     elif [[ ${1} == "push" ]]; then
         _notes_push ${2}
-    elif [[ ${1} == "html" ]]; then
-        _notes_html
-        if [[ $# -eq 1 ]]; then
-            _notes_view
-        fi
     elif [[ ${1} == "view" ]]; then
         _notes_view
+    elif [[ ${1} == "compile" ]]; then
+        _notes_compile
+    elif [[ ${1} == "watch" ]]; then
+        _notes_watch
     else
         echo "Not a valid option"
     fi
@@ -114,22 +113,36 @@ _notes_push() {
     git push
 }
 
-_notes_html() {
-    PROJECT_DIRECTORY=/home/catalin/Documents/projects/js_notes_to_html
-    INPUT_DIRECTORY=/home/catalin/vimwiki
-    OUTPUT_DIRECTORY=/home/catalin/Documents/html_notes
-    START=`date +%s.%N`
+_notes_compile() {
+    PROJECT_DIRECTORY=~/Documents/projects/notes_exporter
+    INPUT_DIRECTORY=~/vimwiki
+    OUTPUT_DIRECTORY=~/vimwiki_html
+    START=`date +%s`
 
     npm --prefix ${PROJECT_DIRECTORY} run compile:markdown -- --input_directory=${INPUT_DIRECTORY} --output_directory=${OUTPUT_DIRECTORY}
 
-    END=`date +%s.%N`
-    RUNTIME=$( echo "$END- $START" | bc -l )
+    END=`date +%s`
+    RUNTIME=$( echo "$END - $START" | bc -l )
     echo "Converted notes in ${RUNTIME} seconds"
 }
 
 _notes_view() {
-    INDEX_PAGE=/home/catalin/Documents/html_notes/index.html
-    firefox ${INDEX_PAGE}
+    INDEX_PAGE=~/vimwiki_html/index.html
+
+    if [[ ${MACHINE} == "Mac" ]]; then
+        open ${INDEX_PAGE}
+    else
+        firefox ${INDEX_PAGE}
+    fi
+}
+
+_notes_watch() {
+    PROJECT_DIRECTORY=~/Documents/projects/notes_exporter
+    INPUT_DIRECTORY=~/vimwiki
+    OUTPUT_DIRECTORY=~/vimwiki_html
+    START=`date +%s`
+
+    npm --prefix ${PROJECT_DIRECTORY} run watch:markdown -- --input_directory=${INPUT_DIRECTORY} --output_directory=${OUTPUT_DIRECTORY}
 }
 
 
@@ -149,6 +162,5 @@ unset __conda_setup
 
 # If on MacOS (M1) add homebrew binaries to path
 if [[ ${MACHINE} == "Mac" ]]; then
-    echo "Hello from mac"
     export PATH="/opt/homebrew/bin:$PATH"
 fi
