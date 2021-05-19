@@ -87,6 +87,9 @@ notes() {
     elif [[ ${1} == "pull" ]]; then
         cd ~/vimwiki
         git pull
+    elif [[ ${1} == "commit" ]]; then
+        cd ~/vimwiki
+        _notes_commit
     elif [[ ${1} == "push" ]]; then
         _notes_push ${2}
     elif [[ ${1} == "view" ]]; then
@@ -98,6 +101,18 @@ notes() {
     else
         echo "Not a valid option"
     fi
+}
+
+_notes_commit() {
+    cd ~/vimwiki
+
+    commit_message="Notes default commit message"
+    if [[ $# == 1 ]]; then
+        commit_message="${1}"
+    fi
+
+    git add .
+    git commit -m "${commit_message}"
 }
 
 _notes_push() {
