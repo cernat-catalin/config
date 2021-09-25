@@ -1,4 +1,5 @@
-##### Config #####
+# TODO Add documentation
+##### Configuration #####
 
 
 UNAME_OUTPUT="$(uname -s)"
@@ -39,7 +40,7 @@ ezsh() {
 }
 
 envim() {
-    nvim ~/.config/nvim/init.vim
+    nvim ~/.config/nvim/init.lua
 }
 
 config_check() {
