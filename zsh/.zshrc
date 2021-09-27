@@ -1,5 +1,6 @@
-# TODO Add documentation
+# TODO Add Documentation
 ##### Configuration #####
+zmodload zsh/zprof
 
 
 UNAME_OUTPUT="$(uname -s)"
@@ -181,4 +182,7 @@ if [[ ${MACHINE} == "Mac" ]]; then
     export PATH="/opt/homebrew/bin:$PATH"
 fi
 
-# <<< conda initialize <<<
+# Source work file if it exists
+if [[ -f "~/.picnicrc" ]]; then
+    source ~/.picnicrc
+fi
