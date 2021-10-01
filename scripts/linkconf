@@ -1,0 +1,138 @@
+#!/bin/bash
+
+REPO_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" ; cd .. ; pwd -P)
+NVIM_DIR=$(eval echo "~/.config/nvim")
+PACKER_DIR=$(eval echo "~/.local/share/nvim/site/pack/packer/start/packer.nvim")
+TMUX_FILE=$(eval echo "~/.tmux.conf")
+ZSH_FILE=$(eval echo "~/.zshrc")
+#I3WM_DIR=$(eval echo "~/.i3")
+
+
+UNAME_OUTPUT="$(uname -s)"
+case "${UNAME_OUTPUT}" in
+    Linux*)     MACHINE=Linux;;
+    Darwin*)    MACHINE=Mac;;
+    CYGWIN*)    MACHINE=Cygwin;;
+    MINGW*)     MACHINE=MinGw;;
+    *)          MACHINE="UNKNOWN:${UNAME_OUTPUT}"
+esac
+
+
+CONFIRMED=0
+ask_for_confirmation() {
+    printf "${1}\nConfirm[Yy]:"
+    read
+    if [[ ${REPLY} =~ ^[Yy]$ ]]; then
+        CONFIRMED=1
+    else
+        CONFIRMED=0
+    fi
+}
+
+
+INPUT_MESSAGE=""
+ask_for_message() {
+    printf "${1}"
+    read
+    INPUT_MESSAGE=${REPLY}
+}
+
+
+link_nvim() {
+    echo "\n=========="
+    echo "Linking Nvim"
+    echo "==========\n"
+
+    if [[ (-f ${NVIM_DIR} || -d ${NVIM_DIR}) && ! (-L ${NVIM_DIR}) ]]; then
+        echo "[ERROR] There exists a file or directory where the nvim config should be. Cannot create symlink."
+    exit 1
+    fi
+
+    echo "Linking Nvim ..."
+    if [[ -L ${NVIM_DIR} ]]; then
+    echo "  Symlink already present. Skipped linking."
+    else
+        (set -x; ln -s ${REPO_DIR}/nvim ${NVIM_DIR})
+    fi
+
+    echo "Cloning Packer ..."
+    if [[ -d ${PACKER_DIR} ]]; then
+        echo "  Packer repository already present. Skipped cloning."
+    else
+        (set -x; git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+            ~/.local/share/nvim/site/pack/packer/start/packer.nvim)
+    fi
+
+    echo "Opening NVIM to install Plugins..."
+    nvim +PackerInstall
+
+}
+
+link_tmux() {
+    echo "\n=========="
+    echo "Linking tmux"
+    echo "==========\n"
+
+    if [[ (-f ${TMUX_FILE} || -d ${TMUX_FILE}) && ! (-L ${TMUX_FILE}) ]]; then
+        echo "[ERROR] There exists a file or directory where the tmux config should be. Cannot create symlink."
+    exit 1
+    fi
+
+    echo "Linking tmux..."
+    if [[ -L ${TMUX_FILE} ]]; then
+    echo "  Symlink already present. Skipped linking."
+    else
+        (set -x; ln -s ${REPO_DIR}/tmux/.tmux.conf ${TMUX_FILE})
+    fi
+}
+
+link_zsh() {
+    echo "\n=========="
+    echo "Linking zsh"
+    echo "==========\n"
+
+    if [[ (-f ${ZSH_FILE} || -d ${ZSH_FILE}) && ! (-L ${ZSH_FILE}) ]]; then
+        echo "[ERROR] There exists a file or directory where the zsh config should be. Cannot create symlink."
+    exit 1
+    fi
+
+    echo "Linking zsh ..."
+    if [[ -L ${ZSH_FILE} ]]; then
+    echo "  Symlink already present. Skipped linking."
+    else
+        (set -x; ln -s ${REPO_DIR}/zsh/.zshrc ${ZSH_FILE})
+    fi
+}
+
+
+
+# User interaction
+if [[ ${1} == "nvim" ]]; then
+    ask_for_confirmation "\nAre you sure you want to link nvim? This operation should fail if nvim is already present."
+    if [[ ${CONFIRMED} == 1 ]]; then
+        link_nvim
+    else
+        printf "\nAborting..."
+    fi
+
+elif [[ ${1} == "zsh" ]]; then
+    ask_for_confirmation "\nAre you sure you want to link zsh? This operation should fail if zsh is already present."
+    if [[ ${CONFIRMED} == 1 ]]; then
+        link_zsh
+    else
+        printf "\nAborting..."
+    fi
+elif [[ ${1} == "tmux" ]]; then
+    ask_for_confirmation "\nAre you sure you want to link tmux? This operation should fail if tmux is already present."
+    if [[ ${CONFIRMED} == 1 ]]; then
+        link_tmux
+    else
+        printf "\nAborting..."
+    fi
+else
+    printf "usage: linkconf <toolname>\n\n"
+    printf "supported tools\n"
+    printf "  nvim      Neovim (nvim config folder and plugin install)\n"
+    printf "  zsh       Zsh (.zshrc config file)\n"
+    printf "  tmux      Tmux (.tmux.conf config file)\n"
+fi

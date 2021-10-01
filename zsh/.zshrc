@@ -182,7 +182,7 @@ if [[ ${MACHINE} == "Mac" ]]; then
     export PATH="/opt/homebrew/bin:$PATH"
 fi
 
-# Source work file if it exists
-if [[ -f "~/.picnicrc" ]]; then
+# Source picnic work file if it exists
+if [[ -f ~/.picnicrc ]]; then
     source ~/.picnicrc
 fi

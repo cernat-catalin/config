@@ -22,6 +22,7 @@ require('packer').startup(function()
   use 'nvim-treesitter/nvim-treesitter'     -- Syntax Parsing
   use 'neovim/nvim-lspconfig'               -- ??
   use 'projekt0n/github-nvim-theme'         -- Theme
+  use 'altercation/vim-colors-solarized'    -- Theme
   use {
     'nvim-telescope/telescope.nvim',
     requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}}
@@ -56,9 +57,13 @@ ts.setup {ensure_installed = 'maintained', highlight = {enable = true}}
 -- :TSInstall javascript
 
 -- Theme
-require('github-theme').setup({
-  colors = {bg = "#212121"}
-})
+--require('github-theme').setup({
+  --colors = {bg = "#212121"}
+--})
+vim.cmd("colorscheme solarized")
+
+-- line numbering
+opt.relativenumber = true
 
 
 -- Other Settings --
