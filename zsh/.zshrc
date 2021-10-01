@@ -44,10 +44,6 @@ envim() {
     nvim ~/.config/nvim/init.lua
 }
 
-config_check() {
-    bash ~/Documents/projects/config/scripts/config_check.sh "$@"
-}
-
 track() {
     bash "/home/catalin/Documents/projects/p_tracker/scripts/track.sh" "$@"
 }
