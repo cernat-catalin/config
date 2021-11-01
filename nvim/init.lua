@@ -67,5 +67,11 @@ opt.relativenumber = true
 
 
 -- Other Settings --
--- MacOS workaround: Bind Cmd+/ in iTerm to " c " (asuming leader key is " "; see NERDCommenter default toggle shortcut)
-vim.api.nvim_set_keymap('n', '<C-_>', '<plug>NERDCommenterToggle', {})
+-- MacOS workaround: Bind Cmd+/ in iTerm to "<leader>ct"
+if vim.fn.has('macunix') then
+    vim.api.nvim_set_keymap('', '<leader>ct', '<plug>NERDCommenterToggle', {})
+else
+    vim.api.nvim_set_keymap('', '<C-_>', '<plug>NERDCommenterToggle', {})
+end
+
+
