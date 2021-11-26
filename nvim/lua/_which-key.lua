@@ -1,11 +1,11 @@
-local opt = vim.opt
-local g = vim.g
-
 -- Trigger which-key on leader key press
 vim.api.nvim_set_keymap('n', '<leader>', ":WhichKey '<Space>'<CR>", {noremap = true, silent = true})
 
-opt.timeoutlen = 10 -- Timeout between leader key press and menu pop-up
-vim.g.which_key_use_floating_win = 0 -- Don't use a floating window
+-- Timeout between leader key press and menu pop-up
+vim.opt.timeoutlen = 10
+
+-- Don't use a floating window
+vim.g.which_key_use_floating_win = 0
 
 
 -- Hide status line
@@ -25,10 +25,9 @@ vim.cmd [[
 
 
 -- Mappings
-g.which_key_map = {}
-g.which_key_map.w = {}
-
-g.which_key_map = {
+vim.g.which_key_map = {}
+vim.g.which_key_map.w = {}
+vim.g.which_key_map = {
     w = {
         name = '+wiki',
         w    = 'Wiki Index',
@@ -56,11 +55,18 @@ g.which_key_map = {
         p    = {':MarkdownPreview', 'Markdown preview'},
         s    = {':set spell!', 'Toggle spellcheck'},
         h    = {':InsertDashes', 'Insert Dashes'}
+    },
+    t = {':NERDTreeToggle', 'Toggle NerdTree'},
+    f = {
+        name = '+find',
+        f    = {':Telescope find_files', 'Find Files'},
+        g    = {':Telescope live_grep', 'Find grep'}
     }
 }
 
+-- Register mapping
+vim.call('which_key#register', '<Space>', 'g:which_key_map')
+
+
 -- How to debug: print(vim.inspect(<variable_name>))
 --print(vim.inspect(g.which_key_map))
-
--- Register which key map
-vim.call('which_key#register', '<Space>', 'g:which_key_map')

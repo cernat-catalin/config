@@ -27,6 +27,7 @@ PROMPT='${time} ${pwd} $(git_prompt_info)'
 
 PATH=$PATH:~/.local/bin
 PATH=$PATH:~/.poetry/bin
+PATH=$PATH:~/.cargo/bin
 
 
 ##### Functions #####
