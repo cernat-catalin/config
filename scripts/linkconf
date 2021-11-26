@@ -6,6 +6,7 @@ PACKER_DIR=$(eval echo "~/.local/share/nvim/site/pack/packer/start/packer.nvim")
 TMUX_FILE=$(eval echo "~/.tmux.conf")
 ZSH_FILE=$(eval echo "~/.zshrc")
 #I3WM_DIR=$(eval echo "~/.i3")
+ALACRITTY_DIR=$(eval echo "~/.config/alacritty")
 
 
 UNAME_OUTPUT="$(uname -s)"
@@ -50,7 +51,7 @@ link_nvim() {
 
     echo "Linking Nvim ..."
     if [[ -L ${NVIM_DIR} ]]; then
-    echo "  Symlink already present. Skipped linking."
+        echo "  Symlink already present. Skipped linking."
     else
         (set -x; ln -s ${REPO_DIR}/nvim ${NVIM_DIR})
     fi
@@ -80,7 +81,7 @@ link_tmux() {
 
     echo "Linking tmux..."
     if [[ -L ${TMUX_FILE} ]]; then
-    echo "  Symlink already present. Skipped linking."
+        echo "  Symlink already present. Skipped linking."
     else
         (set -x; ln -s ${REPO_DIR}/tmux/.tmux.conf ${TMUX_FILE})
     fi
@@ -98,9 +99,27 @@ link_zsh() {
 
     echo "Linking zsh ..."
     if [[ -L ${ZSH_FILE} ]]; then
-    echo "  Symlink already present. Skipped linking."
+        echo "  Symlink already present. Skipped linking."
     else
         (set -x; ln -s ${REPO_DIR}/zsh/.zshrc ${ZSH_FILE})
+    fi
+}
+
+link_alacritty() {
+    echo "\n=========="
+    echo "Linking Alacritty"
+    echo "==========\n"
+
+    if [[ (-f ${ALACRITTY_DIR} || -d ${ALACRITTY_DIR}) && ! (-L ${ALACRITTY_DIR}) ]]; then
+        echo "[ERROR] There exists a file or directory where the alacritty config should be. Cannot create symlink."
+    exit 1
+    fi
+
+    echo "Linking Alacritty..."
+    if [[ -L ${ALACRITTY_DIR} ]]; then
+        echo "  Symlink already present. Skipped linking."
+    else
+        (set -x; ln -s ${REPO_DIR}/alacritty ${ALACRITTY_DIR})
     fi
 }
 
@@ -126,6 +145,13 @@ elif [[ ${1} == "tmux" ]]; then
     ask_for_confirmation "\nAre you sure you want to link tmux? This operation should fail if tmux is already present."
     if [[ ${CONFIRMED} == 1 ]]; then
         link_tmux
+    else
+        printf "\nAborting..."
+    fi
+elif [[ ${1} == "alacritty" ]]; then
+    ask_for_confirmation "\nAre you sure you want to link alacritty? This operation should fail if alacritty is already present."
+    if [[ ${CONFIRMED} == 1 ]]; then
+        link_alacritty
     else
         printf "\nAborting..."
     fi
