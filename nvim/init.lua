@@ -16,10 +16,7 @@
 
 -- XXX: Standardize style
 -- XXX: Configure Telescope
--- XXX: Add old plugins
--- XXX: Add comments to all plugins
 -- XXX: Migrate vimwiki scripts from vimscript to lua
--- XXX: Indent properly this file
 -- XXX: Avoid LSP in comments!
 
 require('packer').startup(function()
@@ -71,13 +68,16 @@ require('packer').startup(function()
   use 'hrsh7th/cmp-path'
   use 'hrsh7th/cmp-cmdline'
 
-  -- Ligature support for LSP completions
-  -- XXX Alacritty doesn't have ligature support. Decide if to keep this.
-  use 'onsails/lspkind-nvim'
-
   -- Installs LSP Servers
   -- XXX Replace with 'williamboman/nvim-lsp-installer'
   use 'kabouzeid/nvim-lspinstall'
+
+  -- Java LSP. Although installed via nvim-lspinstall
+  -- We bring still package in scope for other things (e.g. require('jdtls.dap'))
+  use 'mfussenegger/nvim-jdtls'
+
+  -- LSP Java debug and main entry point runs
+  use 'mfussenegger/nvim-dap'
 
   use 'gruvbox-community/gruvbox'
 end)

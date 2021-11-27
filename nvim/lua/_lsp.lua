@@ -1,9 +1,5 @@
 local cmp = require'cmp'
 
--- requires the installation of fonts: https://github.com/ryanoasis/nerd-fonts#option-4-homebrew-fonts
--- Doesn't work in Alacritty
-local lspkind = require('lspkind')
-
 -- CMP setup. Mostly copied from the repository.
 cmp.setup({
     snippet = {
@@ -38,16 +34,6 @@ cmp.setup({
 
     completion = {
         completeopt = 'menu,menuone,noinsert',
-    },
-
-    formatting = {
-      format = require("lspkind").cmp_format({with_text = true, menu = ({
-          buffer = "[Buffer]",
-          nvim_lsp = "[LSP]",
-          luasnip = "[LuaSnip]",
-          nvim_lua = "[Lua]",
-          latex_symbols = "[Latex]",
-        })}),
     }
 })
 
@@ -67,16 +53,52 @@ cmp.setup.cmdline(':', {
     })
 })
 
--- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-require('lspconfig')['pyright'].setup {
-    capabilities = capabilities
-}
+
+-- Key bindings
+local on_attach = function(client, bufnr)
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+
+    -- Mappings
+    local opts = { noremap=true, silent=true }
+
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
+    buf_set_keymap('n', '<C-b>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+    buf_set_keymap('n', '<leader>gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+    buf_set_keymap('n', '<leader>gf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+end
+
+-- Special Java on_attach function that adds functionallity support for nvim-dap
+local java_on_attach = function(client, bufnr)
+    on_attach(client, bufnr)
+
+    local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+
+    -- Mappings
+    local opts = { noremap=true, silent=true }
+
+    buf_set_keymap('n', '<leader>gr', "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", opts)
+
+    require('jdtls').setup_dap({ hotcodereplace = 'auto' })
+    require('jdtls.dap').setup_dap_main_class_configs()
+end
+
+
+local bundles = {
+    vim.fn.glob("/Users/catalin/.local/share/nvim/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar")
+};
+vim.list_extend(bundles, vim.split(vim.fn.glob("/Users/catalin/.local/share/nvim/vscode-java-test/server/*.jar"), "\n"))
+
+local java_init_options = { bundles = bundles }
 
 
 -- Load all instealled language servers
 require'lspinstall'.setup()
 local servers = require'lspinstall'.installed_servers()
 for _, server in pairs(servers) do
-    require'lspconfig'[server].setup{}
+    if server == "java" then
+        require'lspconfig'[server].setup{ on_attach = java_on_attach, init_options = java_init_options }
+    else
+        require'lspconfig'[server].setup{ on_attach = on_attach }
+    end
+
 end

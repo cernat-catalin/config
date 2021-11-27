@@ -73,6 +73,12 @@ cppr() {
     done
 }
 
+# XXX Function to change java versions
+change_java() {
+    VERSION=${1}
+    export JAVA_HOME=$(/usr/libexec/java_home -v ${VERSION})
+}
+
 
 ##### Notes #####
 
