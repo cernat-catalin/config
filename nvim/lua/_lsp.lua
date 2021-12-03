@@ -54,17 +54,19 @@ cmp.setup.cmdline(':', {
 })
 
 
+
 -- Key bindings
 local on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
     -- Mappings
-    local opts = { noremap=true, silent=true }
+    local opts = { noremap = true, silent = true }
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     buf_set_keymap('n', '<C-b>', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
     buf_set_keymap('n', '<leader>gd', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     buf_set_keymap('n', '<leader>gf', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    buf_set_keymap('n', '<leader>la', '<cmd>lua require("telescope.builtin").lsp_code_actions(require("telescope.themes").get_cursor())<CR>', opts)
 end
 
 -- Special Java on_attach function that adds functionallity support for nvim-dap
@@ -74,7 +76,7 @@ local java_on_attach = function(client, bufnr)
     local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
 
     -- Mappings
-    local opts = { noremap=true, silent=true }
+    local opts = { noremap = true, silent = true }
 
     buf_set_keymap('n', '<leader>gr', "<Cmd>lua require'jdtls'.test_nearest_method()<CR>", opts)
 
@@ -92,13 +94,16 @@ local java_init_options = { bundles = bundles }
 
 
 -- Load all instealled language servers
-require'lspinstall'.setup()
-local servers = require'lspinstall'.installed_servers()
-for _, server in pairs(servers) do
-    if server == "java" then
-        require'lspconfig'[server].setup{ on_attach = java_on_attach, init_options = java_init_options }
+local lsp_installer = require("nvim-lsp-installer")
+lsp_installer.on_server_ready(function(server)
+    local opts = {}
+
+    if server.name == 'jdtls' then
+        opts.on_attach = java_on_attach
+        opts.init_options = java_init_options
     else
-        require'lspconfig'[server].setup{ on_attach = on_attach }
+        opts.on_attach = on_attach
     end
 
-end
+    server:setup(opts)
+end)

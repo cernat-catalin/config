@@ -70,7 +70,7 @@ require('packer').startup(function()
 
   -- Installs LSP Servers
   -- XXX Replace with 'williamboman/nvim-lsp-installer'
-  use 'kabouzeid/nvim-lspinstall'
+  use 'williamboman/nvim-lsp-installer'
 
   -- Java LSP. Although installed via nvim-lspinstall
   -- We bring still package in scope for other things (e.g. require('jdtls.dap'))
@@ -80,6 +80,13 @@ require('packer').startup(function()
   use 'mfussenegger/nvim-dap'
 
   use 'gruvbox-community/gruvbox'
+
+  -- Clojure XXX
+  use 'Olical/conjure'
+  use 'Olical/aniseed'
+
+  -- Auto Pairs XXX
+  use 'windwp/nvim-autopairs'
 end)
 
 

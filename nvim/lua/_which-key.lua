@@ -1,5 +1,6 @@
 -- Trigger which-key on leader key press
 vim.api.nvim_set_keymap('n', '<leader>', ":WhichKey '<Space>'<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<localleader>', ":WhichKey ','<CR>", {noremap = true, silent = true})
 
 -- Timeout between leader key press and menu pop-up
 vim.opt.timeoutlen = 10
