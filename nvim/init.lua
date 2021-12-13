@@ -84,9 +84,6 @@ require('packer').startup(function()
   -- Clojure XXX
   use 'Olical/conjure'
   use 'Olical/aniseed'
-
-  -- Auto Pairs XXX
-  use 'windwp/nvim-autopairs'
 end)
 
 
@@ -99,7 +96,6 @@ require('_lsp')
 -- Tree Sitter
 local ts = require 'nvim-treesitter.configs'
 ts.setup {ensure_installed = 'maintained', highlight = {enable = true}}
--- :TSInstall javascript
 
 
 -- MacOS workaround: Bind Cmd+/ in the terminal to "<leader>ct"
