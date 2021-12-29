@@ -87,9 +87,9 @@ end
 
 
 local bundles = {
-    vim.fn.glob("/Users/catalin/.local/share/nvim/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar")
+    vim.fn.glob("$HOME/.local/share/nvim/java-debug/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-*.jar")
 };
-vim.list_extend(bundles, vim.split(vim.fn.glob("/Users/catalin/.local/share/nvim/vscode-java-test/server/*.jar"), "\n"))
+vim.list_extend(bundles, vim.split(vim.fn.glob("$HOME/.local/share/nvim/vscode-java-test/server/*.jar"), "\n"))
 
 local java_init_options = { bundles = bundles }
 
