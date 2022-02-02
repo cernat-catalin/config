@@ -28,6 +28,28 @@ vim.opt.ignorecase  = true
 
 -- Colorscheme
 vim.opt.termguicolors = true
-vim.g.gruvbox_contrast_dark = "hard"
-vim.g.gruvbox_contrast_light = "hard"
-vim.cmd('colorscheme gruvbox')
+
+
+-- Sync with MacOS dark/light theme
+function os.capture(cmd, raw)
+  local f = assert(io.popen(cmd, 'r'))
+  local s = assert(f:read('*a'))
+  f:close()
+  if raw then return s end
+  s = string.gsub(s, '^%s+', '')
+  s = string.gsub(s, '%s+$', '')
+  s = string.gsub(s, '[\n\r]+', ' ')
+  return s
+end
+
+
+local mode = os.capture('defaults read -g AppleInterfaceStyle 2>/dev/null')
+if mode == 'Dark' then
+    vim.opt.background = 'dark'
+    vim.g.gruvbox_contrast_dark = "hard"
+    vim.g.gruvbox_contrast_light = "hard"
+    vim.cmd('colorscheme gruvbox')
+else
+    vim.opt.background = 'light'
+    vim.cmd('colorscheme solarized')
+end

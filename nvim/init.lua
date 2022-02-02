@@ -82,6 +82,7 @@ require('packer').startup(function()
   use 'mfussenegger/nvim-dap'
 
   use 'gruvbox-community/gruvbox'
+  use 'shaunsingh/solarized.nvim'
 
   -- Clojure XXX
   use 'Olical/conjure'
