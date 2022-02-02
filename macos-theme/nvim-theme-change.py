@@ -14,7 +14,12 @@ servers = servers.stdout.splitlines()
 for server in servers:
     try:
         nvim = attach('socket', path=server)
-        nvim.command(f'set background={mode}')
+        if mode == 'light':
+            nvim.command('set background=light')
+            nvim.command('colorscheme solarized')
+        else:
+            nvim.command('set background=dark')
+            nvim.command('colorscheme gruvbox')
     except Exception as err:
         print(err)
         continue

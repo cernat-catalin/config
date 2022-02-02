@@ -28,9 +28,10 @@ vim.opt.ignorecase  = true
 
 -- Colorscheme
 vim.opt.termguicolors = true
+vim.g.gruvbox_contrast_dark = "hard"
+vim.g.gruvbox_contrast_light = "hard"
 
 
--- Sync with MacOS dark/light theme
 function os.capture(cmd, raw)
   local f = assert(io.popen(cmd, 'r'))
   local s = assert(f:read('*a'))
@@ -46,8 +47,6 @@ end
 local mode = os.capture('defaults read -g AppleInterfaceStyle 2>/dev/null')
 if mode == 'Dark' then
     vim.opt.background = 'dark'
-    vim.g.gruvbox_contrast_dark = "hard"
-    vim.g.gruvbox_contrast_light = "hard"
     vim.cmd('colorscheme gruvbox')
 else
     vim.opt.background = 'light'
