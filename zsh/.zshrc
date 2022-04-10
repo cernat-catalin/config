@@ -28,6 +28,9 @@ PROMPT='${time} ${pwd} $(git_prompt_info)'
 PATH=$PATH:~/.local/bin
 PATH=$PATH:~/.poetry/bin
 PATH=$PATH:~/.cargo/bin
+PATH=$PATH:~/.local/share/sofancy
+
+plugins=(zsh-syntax-highlighting)
 
 
 ##### Functions #####
@@ -71,12 +74,6 @@ cppr() {
             return 0
         fi
     done
-}
-
-# XXX Function to change java versions
-change_java() {
-    VERSION=${1}
-    export JAVA_HOME=$(/usr/libexec/java_home -v ${VERSION})
 }
 
 
