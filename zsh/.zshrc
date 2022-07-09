@@ -1,6 +1,13 @@
 # TODO Add Documentation
 ##### Configuration #####
-zmodload zsh/zprof
+#zmodload zsh/zprof
+
+plugins=(zsh-syntax-highlighting)
+
+# Disable underline of zsh-syntax-highlighting
+(( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
+ZSH_HIGHLIGHT_STYLES[path]=none
+ZSH_HIGHLIGHT_STYLES[path_prefix]=none
 
 
 UNAME_OUTPUT="$(uname -s)"
@@ -30,7 +37,6 @@ PATH=$PATH:~/.poetry/bin
 PATH=$PATH:~/.cargo/bin
 PATH=$PATH:~/.local/share/sofancy
 
-plugins=(zsh-syntax-highlighting)
 
 
 ##### Functions #####
@@ -190,3 +196,4 @@ fi
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
