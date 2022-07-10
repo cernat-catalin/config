@@ -44,28 +44,28 @@ link_nvim() {
     echo "Linking Nvim"
     echo "==========\n"
 
-    if [[ (-f ${NVIM_DIR} || -d ${NVIM_DIR}) && ! (-L ${NVIM_DIR}) ]]; then
-        echo "[ERROR] There exists a file or directory where the nvim config should be. Cannot create symlink."
-    exit 1
-    fi
+    # if [[ (-f ${NVIM_DIR} || -d ${NVIM_DIR}) && ! (-L ${NVIM_DIR}) ]]; then
+    #     echo "[ERROR] There exists a file or directory where the nvim config should be. Cannot create symlink."
+    # exit 1
+    # fi
 
-    echo "Linking Nvim ..."
-    if [[ -L ${NVIM_DIR} ]]; then
+    echo "Linking Astrovim user config..."
+    if [[ -L ${NVIM_DIR/lua/user} ]]; then
         echo "  Symlink already present. Skipped linking."
     else
-        (set -x; ln -s ${REPO_DIR}/nvim ${NVIM_DIR})
+        (set -x; ln -s ${REPO_DIR}/astrovim/user ${NVIM_DIR}/lua)
     fi
 
-    echo "Cloning Packer ..."
-    if [[ -d ${PACKER_DIR} ]]; then
-        echo "  Packer repository already present. Skipped cloning."
-    else
-        (set -x; git clone --depth 1 https://github.com/wbthomason/packer.nvim\
-            ~/.local/share/nvim/site/pack/packer/start/packer.nvim)
-    fi
+    # echo "Cloning Packer ..."
+    # if [[ -d ${PACKER_DIR} ]]; then
+    #     echo "  Packer repository already present. Skipped cloning."
+    # else
+    #     (set -x; git clone --depth 1 https://github.com/wbthomason/packer.nvim\
+    #         ~/.local/share/nvim/site/pack/packer/start/packer.nvim)
+    # fi
 
-    echo "Opening NVIM to install Plugins..."
-    nvim +PackerInstall
+    # echo "Opening NVIM to install Plugins..."
+    # nvim +PackerInstall
 
 }
 
