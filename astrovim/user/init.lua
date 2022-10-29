@@ -12,12 +12,12 @@ local config = {
   },
   mappings = {
     n = {
-      ["<leader>ct"] = { function() require("Comment.api").toggle_current_linewise() end, desc = "Comment line" },
+      ["<leader>ct"] = { function() require("Comment.api").toggle.linewise() end, desc = "Comment line" },
       ["<leader>ms"] = { ":set spell!<cr>", desc = "Toggle spellcheck" }
     },
     v =  {
     ["<leader>ct"] = {
-      "<esc><cmd>lua require('Comment.api').toggle_linewise_op(vim.fn.visualmode())<cr>",
+      "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>",
       desc = "Toggle comment line",
     }
   }
