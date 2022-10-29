@@ -10,6 +10,7 @@ git config --global color.diff-highlight.oldNormal    "red bold"
 git config --global color.diff-highlight.oldHighlight "red bold 52"
 git config --global color.diff-highlight.newNormal    "green bold"
 git config --global color.diff-highlight.newHighlight "green bold 22"
+git config --bool --global diff-so-fancy.stripLeadingSymbols false
 
 git config --global color.diff.meta       "11"
 git config --global color.diff.frag       "magenta bold"

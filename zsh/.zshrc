@@ -82,7 +82,7 @@ cppr() {
     done
 }
 
-json_format() {
+json-format() {
     file=${1}
     jq '.' ${file} > ${file}.tmp && mv ${file}.tmp ${file}
 }
@@ -205,5 +205,5 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-
 source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+[ -f "/Users/catalincernat/.ghcup/env" ] && source "/Users/catalincernat/.ghcup/env" # ghcup-env
