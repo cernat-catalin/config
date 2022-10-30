@@ -204,3 +204,6 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
