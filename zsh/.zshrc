@@ -2,7 +2,7 @@
 ##### Configuration #####
 #zmodload zsh/zprof
 
-plugins=(zsh-syntax-highlighting)
+plugins=(zsh-syntax-highlighting vi-mode)
 
 # Disable underline of zsh-syntax-highlighting
 (( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
