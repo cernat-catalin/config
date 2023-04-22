@@ -44,16 +44,16 @@ link_nvim() {
     echo "Linking Nvim"
     echo "==========\n"
 
-    # if [[ (-f ${NVIM_DIR} || -d ${NVIM_DIR}) && ! (-L ${NVIM_DIR}) ]]; then
-    #     echo "[ERROR] There exists a file or directory where the nvim config should be. Cannot create symlink."
-    # exit 1
-    # fi
+    if [[ (-f ${NVIM_DIR}/lua/user || -d ${NVIM_DIR}/lua/user) && ! (-L ${NVIM_DIR}/lua/user) ]]; then
+        echo "[ERROR] There exists a file or directory where the nvim config should be. Cannot create symlink."
+        exit 1
+    fi
 
     echo "Linking Astrovim user config..."
-    if [[ -L ${NVIM_DIR/lua/user} ]]; then
+    if [[ -L ${NVIM_DIR}/lua/user ]]; then
         echo "  Symlink already present. Skipped linking."
     else
-        (set -x; ln -s ${REPO_DIR}/astrovim/user ${NVIM_DIR}/lua)
+        (set -x; ln -s ${REPO_DIR}/nvim/user ${NVIM_DIR}/lua)
     fi
 
     # echo "Cloning Packer ..."
