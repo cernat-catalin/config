@@ -205,5 +205,8 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+if [[ -f /opt/homebrew/opt/chruby/share/chruby/chruby.sh ]]; then
+    source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
+fi
+
 [ -f "/Users/catalincernat/.ghcup/env" ] && source "/Users/catalincernat/.ghcup/env" # ghcup-env
