@@ -85,21 +85,6 @@ json-format() {
 }
 
 
-##### Conda #####
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/catalin/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/catalin/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "/Users/catalin/miniforge3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/catalin/miniforge3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-
-
 # [MAC-M1] Add homebrew binaries to path
 if [[ ${MACHINE} == "Mac" ]]; then
     export PATH="/opt/homebrew/bin:$PATH"
@@ -111,6 +96,9 @@ if [[ -f ~/.picnicrc ]]; then
     source ~/.picnicrc
 fi
 
+chat() {
+    python ~/projects/test-chatgpt/main.py ${1}
+}
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
