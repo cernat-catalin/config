@@ -1,12 +1,13 @@
 #!/bin/bash
 
-REPO_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" ; cd .. ; pwd -P)
+ALACRITTY_DIR=$(eval echo "~/.config/alacritty")
+BIN_DIR=$(eval echo "~/.local/bin")
 NVIM_DIR=$(eval echo "~/.config/nvim")
 PACKER_DIR=$(eval echo "~/.local/share/nvim/site/pack/packer/start/packer.nvim")
+REPO_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" ; cd .. ; pwd -P)
 TMUX_FILE=$(eval echo "~/.tmux.conf")
 ZSH_FILE=$(eval echo "~/.zshrc")
 #I3WM_DIR=$(eval echo "~/.i3")
-ALACRITTY_DIR=$(eval echo "~/.config/alacritty")
 
 
 UNAME_OUTPUT="$(uname -s)"
@@ -123,9 +124,15 @@ link_alacritty() {
     fi
 }
 
+link_bin() {
+    echo "\n=========="
+    echo "Linking bin files"
+    echo "==========\n"
+
+    (set -x; cp ${REPO_DIR}/bin/* ${BIN_DIR})
+}
 
 
-# User interaction
 if [[ ${1} == "nvim" ]]; then
     ask_for_confirmation "\nAre you sure you want to link nvim? This operation should fail if nvim is already present."
     if [[ ${CONFIRMED} == 1 ]]; then
@@ -155,10 +162,19 @@ elif [[ ${1} == "alacritty" ]]; then
     else
         printf "\nAborting..."
     fi
+elif [[ ${1} == "bin" ]]; then
+    ask_for_confirmation "\nAre you sure you want to copy bin files?"
+    if [[ ${CONFIRMED} == 1 ]]; then
+        link_bin
+    else
+        printf "\nAborting..."
+    fi
 else
     printf "usage: linkconf <toolname>\n\n"
     printf "supported tools\n"
-    printf "  nvim      Neovim (nvim config folder and plugin install)\n"
+    printf "  alacritty Alacritty (alacritty config directory)\n"
+    printf "  bin       bin files (copy bin files to local bin directory)\n"
+    printf "  nvim      Neovim (astrovim config files)\n"
     printf "  zsh       Zsh (.zshrc config file)\n"
     printf "  tmux      Tmux (.tmux.conf config file)\n"
 fi
