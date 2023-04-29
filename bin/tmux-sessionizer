@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 
-echo "Hello"
-
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find ~/projects ~/IdeaProjects ~/CLionProjects -mindepth 1 -maxdepth 1 -type d | fzf)
+    selected=$(find ~/IdeaProjects ~/CLionProjects ~/projects ~/personal_projects ~/work_projects ~/external_projects -mindepth 1 -maxdepth 1 -type d | fzf)
 fi
 
 if [[ -z $selected ]]; then

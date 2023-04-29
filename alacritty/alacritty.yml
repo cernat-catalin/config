@@ -10,7 +10,7 @@ font:
 
 
 import:
-  - "/Users/catalin/.config/alacritty/color.yml"
+  - "~/.config/alacritty/color.yml"
 window:
    opacity: 0.95
 
