@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ALACRITTY_DIR=$(eval echo "~/.config/alacritty")
 BIN_DIR=$(eval echo "~/.local/bin")
