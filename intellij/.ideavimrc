@@ -1,0 +1,16 @@
+" :actionlist in intellij to get a list of all actions
+
+set relativenumber
+set number
+set visualbell
+set noerrorbells
+
+let mapleader=" "
+
+nnoremap <leader>p :action ShowBookmarks<CR>
+nnoremap <leader>s :action ToggleBookmarkWithMnemonic<CR>
+nnoremap <leader>r :action ToggleBookmark<CR>
+nnoremap <leader>k :action ManageRecentProjects<CR>
+
+koremap <leader>vv :e ~/.ideavimrc<CR>
+nnoremap <leader>vr :source ~/.ideavimrc<CR>

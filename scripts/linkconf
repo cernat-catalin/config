@@ -6,6 +6,7 @@ NVIM_DIR=$(eval echo "~/.config/nvim")
 PACKER_DIR=$(eval echo "~/.local/share/nvim/site/pack/packer/start/packer.nvim")
 REPO_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" ; cd .. ; pwd -P)
 TMUX_FILE=$(eval echo "~/.tmux.conf")
+IDEAVIM_FILE=$(eval echo "~/.ideavimrc")
 ZSH_FILE=$(eval echo "~/.zshrc")
 ZSH_PICNIC_FILE=$(eval echo "~/.picnicrc")
 #I3WM_DIR=$(eval echo "~/.i3")
@@ -56,9 +57,23 @@ link_nvim() {
 
 }
 
+link_ideavim() {
+    if [[ (-f ${IDEAVIM_FILE} || -d ${IDEAVIM_FILE}) && ! (-L ${IDEAVIM_FILE}) ]]; then
+        echo "[ERROR] There exists a file or directory where the .ideavimrc file should be. Cannot create symlink."
+        exit 1
+    fi
+
+    echo "Linking .ideavimrc ..."
+    if [[ -L ${IDEAVIM_FILE} ]]; then
+        echo "  Symlink already present. Skipped linking."
+    else
+        (set -x; ln -s ${REPO_DIR}/intellij/.ideavimrc ${IDEAVIM_FILE})
+    fi
+}
+
 link_tmux() {
     if [[ (-f ${TMUX_FILE} || -d ${TMUX_FILE}) && ! (-L ${TMUX_FILE}) ]]; then
-        echo "[ERROR] There exists a file or directory where the tmux config should be. Cannot create symlink."
+        echo "[ERROR] There exists a file or directory where the .tmux.conf file should be. Cannot create symlink."
         exit 1
     fi
 
@@ -125,6 +140,14 @@ if [[ ${1} == "nvim" ]]; then
         printf "\nAborting..."
     fi
 
+elif [[ ${1} == "ideavim" ]]; then
+    ask_for_confirmation "\nAre you sure you want to link ideavim? This operation should fail if ideavim is already present."
+    if [[ ${CONFIRMED} == 1 ]]; then
+        link_ideavim
+    else
+        printf "\nAborting..."
+    fi
+
 elif [[ ${1} == "zsh" ]]; then
     ask_for_confirmation "\nAre you sure you want to link zsh? This operation should fail if zsh is already present."
     if [[ ${CONFIRMED} == 1 ]]; then
@@ -159,6 +182,7 @@ else
     printf "  alacritty Alacritty (alacritty config directory)\n"
     printf "  bin       bin files (copy bin files to local bin directory)\n"
     printf "  nvim      Neovim (astrovim config files)\n"
+    printf "  ideavim   Intellij IdeaVim config\n"
     printf "  zsh       Zsh (.zshrc config file)\n"
     printf "  tmux      Tmux (.tmux.conf config file)\n"
 fi
