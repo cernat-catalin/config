@@ -1,0 +1,3 @@
+[submodule "picnic-config"]
+	path = picnic-config
+	url = git@github.com:cernat-catalin/config-picnic.git
