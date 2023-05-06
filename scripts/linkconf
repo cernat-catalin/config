@@ -7,6 +7,7 @@ PACKER_DIR=$(eval echo "~/.local/share/nvim/site/pack/packer/start/packer.nvim")
 REPO_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" ; cd .. ; pwd -P)
 TMUX_FILE=$(eval echo "~/.tmux.conf")
 ZSH_FILE=$(eval echo "~/.zshrc")
+ZSH_PICNIC_FILE=$(eval echo "~/.picnicrc")
 #I3WM_DIR=$(eval echo "~/.i3")
 
 
@@ -41,46 +42,27 @@ ask_for_message() {
 
 
 link_nvim() {
-    echo "\n=========="
-    echo "Linking Nvim"
-    echo "==========\n"
-
     if [[ (-f ${NVIM_DIR}/lua/user || -d ${NVIM_DIR}/lua/user) && ! (-L ${NVIM_DIR}/lua/user) ]]; then
         echo "[ERROR] There exists a file or directory where the nvim config should be. Cannot create symlink."
         exit 1
     fi
 
-    echo "Linking Astrovim user config..."
+    echo "Linking Astrovim lua/user config file ..."
     if [[ -L ${NVIM_DIR}/lua/user ]]; then
         echo "  Symlink already present. Skipped linking."
     else
         (set -x; ln -s ${REPO_DIR}/nvim/user ${NVIM_DIR}/lua)
     fi
 
-    # echo "Cloning Packer ..."
-    # if [[ -d ${PACKER_DIR} ]]; then
-    #     echo "  Packer repository already present. Skipped cloning."
-    # else
-    #     (set -x; git clone --depth 1 https://github.com/wbthomason/packer.nvim\
-    #         ~/.local/share/nvim/site/pack/packer/start/packer.nvim)
-    # fi
-
-    # echo "Opening NVIM to install Plugins..."
-    # nvim +PackerInstall
-
 }
 
 link_tmux() {
-    echo "\n=========="
-    echo "Linking tmux"
-    echo "==========\n"
-
     if [[ (-f ${TMUX_FILE} || -d ${TMUX_FILE}) && ! (-L ${TMUX_FILE}) ]]; then
         echo "[ERROR] There exists a file or directory where the tmux config should be. Cannot create symlink."
-    exit 1
+        exit 1
     fi
 
-    echo "Linking tmux..."
+    echo "Linking .tmux.conf ..."
     if [[ -L ${TMUX_FILE} ]]; then
         echo "  Symlink already present. Skipped linking."
     else
@@ -89,34 +71,38 @@ link_tmux() {
 }
 
 link_zsh() {
-    echo "\n=========="
-    echo "Linking zsh"
-    echo "==========\n"
-
     if [[ (-f ${ZSH_FILE} || -d ${ZSH_FILE}) && ! (-L ${ZSH_FILE}) ]]; then
-        echo "[ERROR] There exists a file or directory where the zsh config should be. Cannot create symlink."
-    exit 1
+        echo "[ERROR] There exists a file or directory where the .zshrc file should be. Cannot create symlink."
+        exit 1
     fi
 
-    echo "Linking zsh ..."
+    if [[ (-f ${ZSH_PICNIC_FILE} || -d ${ZSH_PICNIC_FILE}) && ! (-L ${ZSH_PICNIC_FILE}) ]]; then
+        echo "[ERROR] There exists a file or directory where the .picnicrc file should be. Cannot create symlink."
+        exit 1
+    fi
+
+    echo "Linking .zshrc ..."
     if [[ -L ${ZSH_FILE} ]]; then
         echo "  Symlink already present. Skipped linking."
     else
-        (set -x; ln -s ${REPO_DIR}/zsh/.zshrc ${ZSH_FILE})
+        (set -x; ln -s ${PICNIC}/zsh/.zshrc ${ZSH_FILE})
+    fi
+
+    echo "Linking .picnicrc..."
+    if [[ -L ${ZSH_PICNIC_FILE} ]]; then
+        echo "  Symlink already present. Skipped linking."
+    else
+        (set -x; ln -s ${REPO_DIR}/picnic-config/zsh/.picnicrc ${ZSH_PICNIC_FILE})
     fi
 }
 
 link_alacritty() {
-    echo "\n=========="
-    echo "Linking Alacritty"
-    echo "==========\n"
-
     if [[ (-f ${ALACRITTY_DIR} || -d ${ALACRITTY_DIR}) && ! (-L ${ALACRITTY_DIR}) ]]; then
         echo "[ERROR] There exists a file or directory where the alacritty config should be. Cannot create symlink."
-    exit 1
+        exit 1
     fi
 
-    echo "Linking Alacritty..."
+    echo "Linking alacritty dir ..."
     if [[ -L ${ALACRITTY_DIR} ]]; then
         echo "  Symlink already present. Skipped linking."
     else
@@ -125,11 +111,9 @@ link_alacritty() {
 }
 
 link_bin() {
-    echo "\n=========="
-    echo "Linking bin files"
-    echo "==========\n"
-
+    ehco "Linking bin files"
     (set -x; cp ${REPO_DIR}/bin/* ${BIN_DIR})
+    (set -x; cp ${REPO_DIR}/picnic-config/bin/* ${BIN_DIR})
 }
 
 
