@@ -1,9 +1,6 @@
--- Enable transparency by default
-vim.g.transparent_enabled = true
-
-
 local config = {
   plugins = {
+    {"github/copilot.vim", lazy = false},
     {
       "xiyaowong/transparent.nvim",
       lazy = false,
@@ -25,7 +22,25 @@ local config = {
         })
       end
     },
-    { "folke/which-key.nvim", opts = { icons = { separator = "➜" } } }
+    { "folke/which-key.nvim", opts = { icons = { separator = "➜" } } },
+    {
+      "nvim-neo-tree/neo-tree.nvim",
+      config = function()
+        require("neo-tree").setup({
+          source_selector = {
+            winbar = false, -- toggle to show selector on winbar
+            statusline = false, -- toggle to show selector on statusline
+            show_scrolled_off_parent_node = false, -- this will replace the tabs with the parent path
+                                           -- of the top visible node when scrolled down.
+            sources = {
+              { source = "filesystem" },
+              { source = "buffers" },
+              { source = "git_status" },
+            },
+          },
+        })
+      end
+    }
   },
   mappings = {
     n = {
@@ -41,4 +56,10 @@ local config = {
   },
 }
 
+-- Copilot: unmap TAB and set <C-e> for completion
+vim.g.copilot_no_tab_map = true
+vim.g.copilot_assume_mapped = true
+vim.api.nvim_set_keymap("i", "<C-e>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+
 return config
+
