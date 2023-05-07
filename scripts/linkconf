@@ -126,7 +126,7 @@ link_alacritty() {
 }
 
 link_bin() {
-    ehco "Linking bin files"
+    echo "Linking bin files"
     (set -x; cp ${REPO_DIR}/bin/* ${BIN_DIR})
     (set -x; cp ${REPO_DIR}/picnic-config/bin/* ${BIN_DIR})
 }
