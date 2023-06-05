@@ -12,7 +12,7 @@ font:
 import:
   - "~/.config/alacritty/color.yml"
 window:
-   opacity: 0.98
+   opacity: 0.97
 
 
 key_bindings:

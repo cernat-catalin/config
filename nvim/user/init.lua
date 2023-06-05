@@ -54,12 +54,18 @@ local config = {
       }
     }
   },
+  polish = function()
+    -- Keep search results highlighted
+    vim.on_key(nil, vim.api.nvim_get_namespaces()["auto_hlsearch"])
+  end
 }
 
 -- Copilot: unmap TAB and set <C-e> for completion
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
 vim.api.nvim_set_keymap("i", "<C-e>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+
+vim.g.transparent_enabled = true
 
 return config
 
