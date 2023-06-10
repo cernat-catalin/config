@@ -9,6 +9,8 @@ TMUX_FILE=$(eval echo "~/.tmux.conf")
 IDEAVIM_FILE=$(eval echo "~/.ideavimrc")
 ZSH_FILE=$(eval echo "~/.zshrc")
 ZSH_PICNIC_FILE=$(eval echo "~/.picnicrc")
+YABAI_DIR=$(eval echo "~/.config/yabai")
+SKHD_DIR=$(eval echo "~/.config/skhd")
 #I3WM_DIR=$(eval echo "~/.i3")
 
 
@@ -131,6 +133,34 @@ link_bin() {
     (set -x; cp ${REPO_DIR}/picnic-config/bin/* ${BIN_DIR})
 }
 
+link_yabai() {
+    if [[ (-f ${YABAI_DIR} || -d ${YABAI_DIR}) && ! (-L ${YABAI_DIR}) ]]; then
+        echo "[ERROR] There exists a file or directory where the yabai config should be. Cannot create symlink."
+        exit 1
+    fi
+
+    echo "Linking yabai dir ..."
+    if [[ -L ${YABAI_DIR} ]]; then
+        echo "  Symlink already present. Skipped linking."
+    else
+        (set -x; ln -s ${REPO_DIR}/yabai ${YABAI_DIR})
+    fi
+}
+
+link_skhd() {
+    if [[ (-f ${SKHD_DIR} || -d ${SKHD_DIR}) && ! (-L ${SKHD_DIR}) ]]; then
+        echo "[ERROR] There exists a file or directory where the skhd config should be. Cannot create symlink."
+        exit 1
+    fi
+
+    echo "Linking skhd dir ..."
+    if [[ -L ${SKHD_DIR} ]]; then
+        echo "  Symlink already present. Skipped linking."
+    else
+        (set -x; ln -s ${REPO_DIR}/skhd ${SKHD_DIR})
+    fi
+}
+
 
 if [[ ${1} == "nvim" ]]; then
     ask_for_confirmation "\nAre you sure you want to link nvim? This operation should fail if nvim is already present."
@@ -176,6 +206,20 @@ elif [[ ${1} == "bin" ]]; then
     else
         printf "\nAborting..."
     fi
+elif [[ ${1} == "yabai" ]]; then
+    ask_for_confirmation "\nAre you sure you want to copy bin files?"
+    if [[ ${CONFIRMED} == 1 ]]; then
+        link_yabai
+    else
+        printf "\nAborting..."
+    fi
+elif [[ ${1} == "skhd" ]]; then
+    ask_for_confirmation "\nAre you sure you want to copy bin files?"
+    if [[ ${CONFIRMED} == 1 ]]; then
+        link_skhd
+    else
+        printf "\nAborting..."
+    fi
 else
     printf "usage: linkconf <toolname>\n\n"
     printf "supported tools\n"
@@ -185,4 +229,6 @@ else
     printf "  ideavim   Intellij IdeaVim config\n"
     printf "  zsh       Zsh (.zshrc config file)\n"
     printf "  tmux      Tmux (.tmux.conf config file)\n"
+    printf "  yabai     Yabai (yabai config directory)\n"
+    printf "  skhd      Skhd (skhdrc config directory)\n"
 fi
