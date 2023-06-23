@@ -27,6 +27,7 @@ export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="dieter"
 source $ZSH/oh-my-zsh.sh
 alias tmux="env TERM=xterm-256color tmux -2"
+alias rgf='rg --files | rg'
 stty -ixon
 
 export ANDROID_SDK_ROOT=/home/catalin/Android/Sdk

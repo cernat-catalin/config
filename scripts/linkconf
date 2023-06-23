@@ -102,7 +102,7 @@ link_zsh() {
     if [[ -L ${ZSH_FILE} ]]; then
         echo "  Symlink already present. Skipped linking."
     else
-        (set -x; ln -s ${PICNIC}/zsh/.zshrc ${ZSH_FILE})
+        (set -x; ln -s ${REPO_DIR}/zsh/.zshrc ${ZSH_FILE})
     fi
 
     echo "Linking .picnicrc..."
@@ -129,8 +129,16 @@ link_alacritty() {
 
 link_bin() {
     echo "Linking bin files"
-    (set -x; cp ${REPO_DIR}/bin/* ${BIN_DIR})
-    (set -x; cp ${REPO_DIR}/picnic-config/bin/* ${BIN_DIR})
+
+    for file in "${REPO_DIR}/bin"/* "${REPO_DIR}/picnic-config/bin"/* ; do
+        echo "Linking $(basename ${file}) ..."
+
+        if [[ -L "${BIN_DIR}/$(basename ${file})" ]]; then
+            echo "  Symlink already present. Skipped linking."
+        else
+            (set -x; ln -s ${file} "${BIN_DIR}/$(basename ${file})")
+        fi
+    done
 }
 
 link_yabai() {
