@@ -2,16 +2,14 @@
 
 ALACRITTY_DIR=$(eval echo "~/.config/alacritty")
 BIN_DIR=$(eval echo "~/.local/bin")
-NVIM_DIR=$(eval echo "~/.config/nvim")
-PACKER_DIR=$(eval echo "~/.local/share/nvim/site/pack/packer/start/packer.nvim")
-REPO_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" ; cd .. ; pwd -P)
-TMUX_FILE=$(eval echo "~/.tmux.conf")
 IDEAVIM_FILE=$(eval echo "~/.ideavimrc")
+NVIM_DIR=$(eval echo "~/.config/nvim")
+REPO_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" ; cd .. ; pwd -P)
+SKHD_DIR=$(eval echo "~/.config/skhd")
+TMUX_FILE=$(eval echo "~/.tmux.conf")
+YABAI_DIR=$(eval echo "~/.config/yabai")
 ZSH_FILE=$(eval echo "~/.zshrc")
 ZSH_PICNIC_FILE=$(eval echo "~/.picnicrc")
-YABAI_DIR=$(eval echo "~/.config/yabai")
-SKHD_DIR=$(eval echo "~/.config/skhd")
-#I3WM_DIR=$(eval echo "~/.i3")
 
 
 UNAME_OUTPUT="$(uname -s)"
@@ -35,208 +33,68 @@ ask_for_confirmation() {
     fi
 }
 
-
-INPUT_MESSAGE=""
-ask_for_message() {
-    printf "${1}"
-    read
-    INPUT_MESSAGE=${REPLY}
+ask_for_confirmation_with_exit() {
+    local name=${1}
+    ask_for_confirmation "\nAre you sure you want to link ${name}? This operation will fail if ${name} is already linked."
+    if [[ ${CONFIRMED} == 0 ]]; then
+        printf "Aborting...\n"
+        exit 0
+    fi
 }
 
+link() {
+    local source=${1}
+    local target=${2}
 
-link_nvim() {
-    if [[ (-f ${NVIM_DIR}/lua/user || -d ${NVIM_DIR}/lua/user) && ! (-L ${NVIM_DIR}/lua/user) ]]; then
-        echo "[ERROR] There exists a file or directory where the nvim config should be. Cannot create symlink."
+    if [[ (-f ${target} || -d ${target}) && ! (-L ${target}) ]]; then
+        echo "[ERROR] There exists a file or directory at ${target}"
         exit 1
     fi
 
-    echo "Linking Astrovim lua/user config file ..."
-    if [[ -L ${NVIM_DIR}/lua/user ]]; then
-        echo "  Symlink already present. Skipped linking."
+    if [[ -L ${target} ]]; then
+        echo "[WARNING] Symlink already present at ${target}"
     else
-        (set -x; ln -s ${REPO_DIR}/nvim/user ${NVIM_DIR}/lua)
-    fi
-
-}
-
-link_ideavim() {
-    if [[ (-f ${IDEAVIM_FILE} || -d ${IDEAVIM_FILE}) && ! (-L ${IDEAVIM_FILE}) ]]; then
-        echo "[ERROR] There exists a file or directory where the .ideavimrc file should be. Cannot create symlink."
-        exit 1
-    fi
-
-    echo "Linking .ideavimrc ..."
-    if [[ -L ${IDEAVIM_FILE} ]]; then
-        echo "  Symlink already present. Skipped linking."
-    else
-        (set -x; ln -s ${REPO_DIR}/intellij/.ideavimrc ${IDEAVIM_FILE})
-    fi
-}
-
-link_tmux() {
-    if [[ (-f ${TMUX_FILE} || -d ${TMUX_FILE}) && ! (-L ${TMUX_FILE}) ]]; then
-        echo "[ERROR] There exists a file or directory where the .tmux.conf file should be. Cannot create symlink."
-        exit 1
-    fi
-
-    echo "Linking .tmux.conf ..."
-    if [[ -L ${TMUX_FILE} ]]; then
-        echo "  Symlink already present. Skipped linking."
-    else
-        (set -x; ln -s ${REPO_DIR}/tmux/.tmux.conf ${TMUX_FILE})
-    fi
-}
-
-link_zsh() {
-    if [[ (-f ${ZSH_FILE} || -d ${ZSH_FILE}) && ! (-L ${ZSH_FILE}) ]]; then
-        echo "[ERROR] There exists a file or directory where the .zshrc file should be. Cannot create symlink."
-        exit 1
-    fi
-
-    if [[ (-f ${ZSH_PICNIC_FILE} || -d ${ZSH_PICNIC_FILE}) && ! (-L ${ZSH_PICNIC_FILE}) ]]; then
-        echo "[ERROR] There exists a file or directory where the .picnicrc file should be. Cannot create symlink."
-        exit 1
-    fi
-
-    echo "Linking .zshrc ..."
-    if [[ -L ${ZSH_FILE} ]]; then
-        echo "  Symlink already present. Skipped linking."
-    else
-        (set -x; ln -s ${REPO_DIR}/zsh/.zshrc ${ZSH_FILE})
-    fi
-
-    echo "Linking .picnicrc..."
-    if [[ -L ${ZSH_PICNIC_FILE} ]]; then
-        echo "  Symlink already present. Skipped linking."
-    else
-        (set -x; ln -s ${REPO_DIR}/picnic-config/zsh/.picnicrc ${ZSH_PICNIC_FILE})
-    fi
-}
-
-link_alacritty() {
-    if [[ (-f ${ALACRITTY_DIR} || -d ${ALACRITTY_DIR}) && ! (-L ${ALACRITTY_DIR}) ]]; then
-        echo "[ERROR] There exists a file or directory where the alacritty config should be. Cannot create symlink."
-        exit 1
-    fi
-
-    echo "Linking alacritty dir ..."
-    if [[ -L ${ALACRITTY_DIR} ]]; then
-        echo "  Symlink already present. Skipped linking."
-    else
-        (set -x; ln -s ${REPO_DIR}/alacritty ${ALACRITTY_DIR})
-    fi
-}
-
-link_bin() {
-    echo "Linking bin files"
-
-    for file in "${REPO_DIR}/bin"/* "${REPO_DIR}/picnic-config/bin"/* ; do
-        echo "Linking $(basename ${file}) ..."
-
-        if [[ -L "${BIN_DIR}/$(basename ${file})" ]]; then
-            echo "  Symlink already present. Skipped linking."
-        else
-            (set -x; ln -s ${file} "${BIN_DIR}/$(basename ${file})")
-        fi
-    done
-}
-
-link_yabai() {
-    if [[ (-f ${YABAI_DIR} || -d ${YABAI_DIR}) && ! (-L ${YABAI_DIR}) ]]; then
-        echo "[ERROR] There exists a file or directory where the yabai config should be. Cannot create symlink."
-        exit 1
-    fi
-
-    echo "Linking yabai dir ..."
-    if [[ -L ${YABAI_DIR} ]]; then
-        echo "  Symlink already present. Skipped linking."
-    else
-        (set -x; ln -s ${REPO_DIR}/yabai ${YABAI_DIR})
-    fi
-}
-
-link_skhd() {
-    if [[ (-f ${SKHD_DIR} || -d ${SKHD_DIR}) && ! (-L ${SKHD_DIR}) ]]; then
-        echo "[ERROR] There exists a file or directory where the skhd config should be. Cannot create symlink."
-        exit 1
-    fi
-
-    echo "Linking skhd dir ..."
-    if [[ -L ${SKHD_DIR} ]]; then
-        echo "  Symlink already present. Skipped linking."
-    else
-        (set -x; ln -s ${REPO_DIR}/skhd ${SKHD_DIR})
+        (set -x; ln -s ${source} ${target})
     fi
 }
 
 
+ask_for_confirmation_with_exit ${1}
 if [[ ${1} == "nvim" ]]; then
-    ask_for_confirmation "\nAre you sure you want to link nvim? This operation should fail if nvim is already present."
-    if [[ ${CONFIRMED} == 1 ]]; then
-        link_nvim
-    else
-        printf "\nAborting..."
-    fi
+    link ${REPO_DIR}/nvim/user ${NVIM_DIR}/lua/user
 
 elif [[ ${1} == "ideavim" ]]; then
-    ask_for_confirmation "\nAre you sure you want to link ideavim? This operation should fail if ideavim is already present."
-    if [[ ${CONFIRMED} == 1 ]]; then
-        link_ideavim
-    else
-        printf "\nAborting..."
-    fi
+    link ${REPO_DIR}/intellij/.ideavimrc ${IDEAVIM_FILE}
 
 elif [[ ${1} == "zsh" ]]; then
-    ask_for_confirmation "\nAre you sure you want to link zsh? This operation should fail if zsh is already present."
-    if [[ ${CONFIRMED} == 1 ]]; then
-        link_zsh
-    else
-        printf "\nAborting..."
-    fi
+    link ${REPO_DIR}/zsh/.zshrc ${ZSH_FILE}
+    link ${REPO_DIR}/picnic-config/zsh/.picnicrc ${ZSH_PICNIC_FILE}
+
 elif [[ ${1} == "tmux" ]]; then
-    ask_for_confirmation "\nAre you sure you want to link tmux? This operation should fail if tmux is already present."
-    if [[ ${CONFIRMED} == 1 ]]; then
-        link_tmux
-    else
-        printf "\nAborting..."
-    fi
+    link ${REPO_DIR}/tmux/.tmux.conf ${TMUX_FILE}
+
 elif [[ ${1} == "alacritty" ]]; then
-    ask_for_confirmation "\nAre you sure you want to link alacritty? This operation should fail if alacritty is already present."
-    if [[ ${CONFIRMED} == 1 ]]; then
-        link_alacritty
-    else
-        printf "\nAborting..."
-    fi
-elif [[ ${1} == "bin" ]]; then
-    ask_for_confirmation "\nAre you sure you want to copy bin files?"
-    if [[ ${CONFIRMED} == 1 ]]; then
-        link_bin
-    else
-        printf "\nAborting..."
-    fi
+    link ${REPO_DIR}/alacritty ${ALACRITTY_DIR}
+
 elif [[ ${1} == "yabai" ]]; then
-    ask_for_confirmation "\nAre you sure you want to copy bin files?"
-    if [[ ${CONFIRMED} == 1 ]]; then
-        link_yabai
-    else
-        printf "\nAborting..."
-    fi
+    link ${REPO_DIR}/yabai ${YABAI_DIR}
+
 elif [[ ${1} == "skhd" ]]; then
-    ask_for_confirmation "\nAre you sure you want to copy bin files?"
-    if [[ ${CONFIRMED} == 1 ]]; then
-        link_skhd
-    else
-        printf "\nAborting..."
-    fi
+    link ${REPO_DIR}/skhd ${SKHD_DIR}
+
+elif [[ ${1} == "bin" ]]; then
+    for file in "${REPO_DIR}/bin"/* "${REPO_DIR}/picnic-config/bin"/* ; do
+        link ${file} "${BIN_DIR}/$(basename ${file})"
+    done
 else
-    printf "usage: linkconf <toolname>\n\n"
-    printf "supported tools\n"
-    printf "  alacritty Alacritty (alacritty config directory)\n"
-    printf "  bin       bin files (copy bin files to local bin directory)\n"
-    printf "  nvim      Neovim (astrovim config files)\n"
-    printf "  ideavim   Intellij IdeaVim config\n"
-    printf "  zsh       Zsh (.zshrc config file)\n"
-    printf "  tmux      Tmux (.tmux.conf config file)\n"
-    printf "  yabai     Yabai (yabai config directory)\n"
-    printf "  skhd      Skhd (skhdrc config directory)\n"
+    printf "\nInvalid argument. Usage: linkconf <toolname>\n\n"
+    printf "Supported tools:\n"
+    printf "  - alacritty   Alacritty\n"
+    printf "  - bin         Bin files (useful bins utilities)\n"
+    printf "  - ideavim     Intellij IdeaVim\n"
+    printf "  - nvim        Neovim (Astrovim)\n"
+    printf "  - skhd        Skhd\n"
+    printf "  - tmux        Tmux\n"
+    printf "  - yabai       Yabai\n"
+    printf "  - zsh         Zsh\n"
 fi
