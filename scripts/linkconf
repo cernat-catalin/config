@@ -43,6 +43,7 @@ ask_for_confirmation_with_exit() {
 }
 
 link() {
+    ask_for_confirmation_with_exit ${1}
     local source=${1}
     local target=${2}
 
@@ -59,7 +60,6 @@ link() {
 }
 
 
-ask_for_confirmation_with_exit ${1}
 if [[ ${1} == "nvim" ]]; then
     link ${REPO_DIR}/nvim/user ${NVIM_DIR}/lua/user
 
