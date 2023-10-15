@@ -2,7 +2,8 @@
 ##### Configuration #####
 
 # Uncomment to enable profiling
-#zmodload zsh/zprof
+# And the last line in this file as well
+# zmodload zsh/zprof
 
 plugins=(zsh-syntax-highlighting vi-mode)
 
@@ -23,6 +24,9 @@ case "${UNAME_OUTPUT}" in
 esac
 
 
+# The following line disables oh my zsh updates.
+# The start-up time of a shell session is greatly increased as a result.
+export DISABLE_AUTO_UPDATE=true
 export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="dieter"
 source $ZSH/oh-my-zsh.sh
@@ -88,21 +92,6 @@ json-format() {
 }
 
 
-# [MAC-M1] Add homebrew binaries to path
-if [[ ${MACHINE} == "Mac" ]]; then
-    export PATH="/opt/homebrew/bin:$PATH"
-fi
-
-
-# [Work] Source picnic work file if it exists
-if [[ -f ~/.picnicrc ]]; then
-    source ~/.picnicrc
-fi
-
-chat() {
-    python ~/projects/test-chatgpt/main.py ${1}
-}
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if [[ -f /opt/homebrew/opt/chruby/share/chruby/chruby.sh ]]; then
@@ -119,7 +108,20 @@ SAVEHIST=100000
 export SAVEHIST=$HISTSIZE
 setopt HIST_IGNORE_DUPS
 
+# [MAC-M1] Add homebrew binaries to path
+if [[ ${MACHINE} == "Mac" ]]; then
+    export PATH="/opt/homebrew/bin:$PATH"
+fi
+
+
+# [Work] Source picnic work file if it exists
+if [[ -f ~/.picnicrc ]]; then
+    source ~/.picnicrc
+fi
+
 
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+# zprof
