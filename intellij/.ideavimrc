@@ -8,8 +8,8 @@ set noerrorbells
 let mapleader=" "
 
 nnoremap <leader>p :action ShowBookmarks<cr>
-nnoremap <leader>s :action ToggleBookmarkWithMnemonic<cr>
-nnoremap <leader>r :action ToggleBookmark<cr>
+nnoremap <leader>m :action ToggleBookmarkWithMnemonic<cr>
+nnoremap <leader>b :action ToggleBookmark<cr>
 nnoremap <leader>k :action ManageRecentProjects<cr>
 
 nnoremap <leader>vv :e ~/.ideavimrc<cr>

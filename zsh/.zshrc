@@ -119,6 +119,10 @@ if [[ -f ~/.picnicrc ]]; then
     source ~/.picnicrc
 fi
 
+export VISUAL=nvim
+autoload edit-command-line; zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
+
 
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
