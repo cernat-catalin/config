@@ -44,7 +44,8 @@ PATH=$PATH:~/.local/bin
 PATH=$PATH:~/.poetry/bin
 PATH=$PATH:~/.cargo/bin
 PATH=$PATH:~/.local/share/sofancy
-PATH=$PATH:~/Documents/zig/zig-0.12.0
+PATH=$PATH:~/projects/zig_binary
+PATH=$PATH:~/projects/zls/zig-out/bin
 PATH=$PATH:~/Documents/zig/unzipped
 
 

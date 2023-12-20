@@ -67,4 +67,17 @@ vim.api.nvim_set_keymap("i", "<C-e>", 'copilot#Accept("<CR>")', { silent = true,
 
 vim.g.transparent_enabled = true
 
+-- autocmd for language specific settings
+vim.api.nvim_create_autocmd("Filetype", {
+  pattern = "zig",
+  callback = function()
+    -- Keymap for Java --
+
+    vim.bo.tabstop = 4
+    vim.bo.softtabstop = 4
+    vim.bo.shiftwidth = 4
+    vim.bo.expandtab = true
+  end,
+})
+
 return config
