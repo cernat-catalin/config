@@ -60,6 +60,11 @@ local config = {
   end
 }
 
+-- Avoid having to press "Enter" when entering a new buffer
+vim.opt.shortmess = {
+  o = true
+}
+
 -- Copilot: unmap TAB and set <C-e> for completion
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_assume_mapped = true
