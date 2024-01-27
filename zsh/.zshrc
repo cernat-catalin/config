@@ -46,7 +46,6 @@ PATH=$PATH:~/.cargo/bin
 PATH=$PATH:~/.local/share/sofancy
 PATH=$PATH:~/projects/zig_binary
 PATH=$PATH:~/projects/zls/zig-out/bin
-PATH=$PATH:~/Documents/zig/unzipped
 
 
 ##### Helpers #####
