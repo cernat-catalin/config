@@ -1,6 +1,7 @@
 local config = {
   plugins = {
     { "github/copilot.vim",   lazy = false },
+    { "andrewradev/linediff.vim", lazy = false },
     {
       "xiyaowong/transparent.nvim",
       lazy = false,
@@ -71,6 +72,9 @@ vim.g.copilot_assume_mapped = true
 vim.api.nvim_set_keymap("i", "<C-e>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
 
 vim.g.transparent_enabled = true
+
+vim.g.linediff_first_buffer_command  = 'tabnew'
+vim.g.linediff_second_buffer_command = 'rightbelow new'
 
 -- autocmd for language specific settings
 vim.api.nvim_create_autocmd("Filetype", {
