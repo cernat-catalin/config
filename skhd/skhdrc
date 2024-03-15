@@ -1,7 +1,7 @@
 # Move to left workspace
-ctrl - left : yabai -m space --focus prev
+# ctrl - left : yabai -m space --focus prev
 # Move to right workspace
-ctrl - right : yabai -m space --focus next
+# ctrl - right : yabai -m space --focus next
 
 # Maximize window
 shift + alt - z : yabai -m window --toggle zoom-fullscreen

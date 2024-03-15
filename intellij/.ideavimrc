@@ -4,13 +4,13 @@ set relativenumber
 set number
 set visualbell
 set noerrorbells
+set scrolloff=10
 
 let mapleader=" "
 
-nnoremap <leader>p :action ShowBookmarks<cr>
-nnoremap <leader>m :action ToggleBookmarkWithMnemonic<cr>
-nnoremap <leader>b :action ToggleBookmark<cr>
 nnoremap <leader>k :action ManageRecentProjects<cr>
+nnoremap <leader>sf :action GotoFile<cr>
+nnoremap <leader>mr :action Maven.Reimport<cr>
 
 nnoremap <leader>vv :e ~/.ideavimrc<cr>
 nnoremap <leader>vr :source ~/.ideavimrc<cr>
