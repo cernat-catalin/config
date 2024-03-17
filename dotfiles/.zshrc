@@ -1,8 +1,7 @@
 # TODO Add Documentation
 ##### Configuration #####
 
-# Uncomment to enable profiling
-# And the last line in this file as well
+# Uncomment to enable profiling (and the last line in this file as well)
 # zmodload zsh/zprof
 
 plugins=(
