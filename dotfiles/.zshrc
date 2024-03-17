@@ -5,7 +5,11 @@
 # And the last line in this file as well
 # zmodload zsh/zprof
 
-plugins=(zsh-syntax-highlighting vi-mode)
+plugins=(
+    zsh-syntax-highlighting
+    vi-mode
+    zsh-autosuggestions
+)
 
 # Disable underline of zsh-syntax-highlighting
 (( ${+ZSH_HIGHLIGHT_STYLES} )) || typeset -A ZSH_HIGHLIGHT_STYLES
@@ -43,7 +47,7 @@ PROMPT='${time} ${pwd} $(git_prompt_info)'
 PATH=$PATH:~/.local/bin
 PATH=$PATH:~/.poetry/bin
 PATH=$PATH:~/.cargo/bin
-PATH=$PATH:~/.local/share/sofancy
+PATH=$PATH:~/.local/share/diff-so-fancy
 PATH=$PATH:~/projects/zig_binary
 PATH=$PATH:~/projects/zls/zig-out/bin
 

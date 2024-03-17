@@ -23,3 +23,8 @@
 	old = red bold
 	new = green bold
 	whitespace = red reverse
+[alias]
+  last = log --name-status HEAD^..HEAD
+  one = log --oneline
+[diff-so-fancy]
+	stripLeadingSymbols = false

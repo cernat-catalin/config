@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+echo "Stowing personal dotfiles"
+stow -t ~ dotfiles
+
+echo "Stowing personal bins"
+stow -t ~/.local/bin bin
+
+
+pushd ./picnic-config/
+echo "Stowing picnic dotfiles"
+stow -t ~ dotfiles
+
+echo "Stowing picnic bins"
+stow -t ~/.local/bin bin
+popd

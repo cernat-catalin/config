@@ -1,7 +1,19 @@
 # Config Files
 
-## Alacritty
-MacOS: `xattr -d com.apple.quarantine /Applications/Alacritty.app`
+## Install
+```sh
+brew install ansible
 
-## Nvim
-`TSInstall all` to fix tree sitter issues
+ansible-playbook --ask-become-pass local.yml
+```
+
+## Alacritty
+Macos installation
+```sh
+brew install --cask alacritty --no-quarantine
+```
+
+## TODO
+Add to ansible setup
+- Check linux setup is correct
+- Add alacritty
