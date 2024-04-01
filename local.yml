@@ -10,17 +10,12 @@
       tags:
         - always
 
-
   tasks:
-    # ===================================
-    # ===== Update Package Managers =====
-    # ===================================
     - name: Updating Homebrew
       homebrew:
         update_homebrew: true
       when:
         - ansible_facts['os_family'] == "Darwin"
-        - homebrew_check.stat.exists
       tags:
         - always
 
@@ -35,131 +30,25 @@
       tags:
         - always
 
-    # =====================
-    # ===== Setup ZSH =====
-    # =====================
-    - name: Install zsh (Darwin)
-      homebrew:
-        name: zsh
-        state: present
-      when:
-        - ansible_facts['os_family'] == "Darwin"
-        - homebrew_check.stat.exists
-      tags:
-        - zsh
+    - name: Include Child Task
+      import_tasks: tasks/zsh.yml
 
-    - name: Install zsh (Debian)
-      apt: name=zsh
-      when:
-        - ansible_facts['os_family'] == "Debian"
-      tags:
-        - zsh
+    - name: Include Child Task
+      import_tasks: tasks/utils.yml
 
-    - name: Check if shell is zsh
-      shell: "echo $SHELL"
-      register: myshell
-      changed_when: false
-      tags:
-        - zsh
+    - name: Include Child Task
+      import_tasks: tasks/node.yml
 
-    - name: Change default shell to zsh
-      become: true
-      shell: "chsh -s $(which zsh) {{ ansible_user_id }}"
-      when: '"zsh" not in myshell.stdout'
-      tags:
-        - zsh
-
-    - name: Check oh-my-zsh is alreayd installed
-      stat:
-        path: ~/.oh-my-zsh
-      register: ohmyzsh
-      tags:
-        - zsh
-
-    - name: Install ohmyzsh
-      shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-      when: not ohmyzsh.stat.exists
-      tags:
-        - zsh
-
-    - name: Remove default .zshrc
-      file:
-        path: "~/.zshrc"
-        state: absent
-      tags:
-        - zsh
-
-    - name: Install zsh-autosuggestions
-      ansible.builtin.git:
-        repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
-        dest: "~/.oh-my-zsh/plugins/zsh-autosuggestions"
-      tags:
-        - zsh
-
-    - name: Install zsh-syntax-highlighting
-      ansible.builtin.git:
-        repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
-        dest: "~/.oh-my-zsh/plugins/zsh-syntax-highlighting"
-      tags:
-        - zsh
-
-    - name: Install diff-so-fancy
-      ansible.builtin.git:
-        repo: 'https://github.com/so-fancy/diff-so-fancy.git'
-        dest: "~/.local/share/diff-so-fancy"
-      tags:
-        - zsh
-
-    # ========================
-    # ===== Setup Neovim =====
-    # ========================
-    - name: Install neovim (Debian)
-      apt: name=neovim
-      when:
-        - ansible_facts['os_family'] == "Debian"
-      tags:
-        - productivity
-
-    - name: Install neovim (Darwin)
-      homebrew:
-        name: neovim
-        state: present
-      when:
-        - ansible_facts['os_family'] == "Darwin"
-        - homebrew_check.stat.exists
-
-    # ======================
-    # ===== Setup Tmux =====
-    # ======================
-    - name: Install tmux (Debian)
-      apt: name=tmux
-      when:
-        - ansible_facts['os_family'] == "Debian"
-
-    - name: Install tmux (Darwin)
-      homebrew:
-        name: tmux
-        state: present
-      when:
-        - ansible_facts['os_family'] == "Darwin"
-        - homebrew_check.stat.exists
-      tags:
-        - productivity
-
-    # ==========================
-    # ===== Setup dotfiles =====
-    # ==========================
     - name: Install stow (Darwin)
       homebrew:
         name: stow
         state: present
       when:
         - ansible_facts['os_family'] == "Darwin"
-        - homebrew_check.stat.exists
       tags:
-        - productivity
+        - dotfiles
 
     - name: Link dotfiles with GNU stow
       shell: ./install-dotfiles
       tags:
-        - productivity
+        - dotfiles

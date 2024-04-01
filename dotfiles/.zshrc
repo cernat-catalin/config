@@ -7,7 +7,6 @@
 plugins=(
     zsh-syntax-highlighting
     vi-mode
-    zsh-autosuggestions
 )
 
 # Disable underline of zsh-syntax-highlighting
@@ -39,6 +38,7 @@ stty -ixon
 
 export ANDROID_SDK_ROOT=/home/catalin/Android/Sdk
 export BROWSER="/usr/bin/firefox"
+export N_PREFIX=~/.n
 
 local pwd="%{$fg[red]%}%c%{$reset_color%}"
 PROMPT='${time} ${pwd} $(git_prompt_info)'
@@ -49,6 +49,7 @@ PATH=$PATH:~/.cargo/bin
 PATH=$PATH:~/.local/share/diff-so-fancy
 PATH=$PATH:~/projects/zig_binary
 PATH=$PATH:~/projects/zls/zig-out/bin
+PATH=$PATH:~/.n/bin
 
 
 ##### Helpers #####

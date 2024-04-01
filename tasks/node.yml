@@ -1,0 +1,41 @@
+- name: Intall nodejs and npm
+  homebrew:
+    name: ["n"]
+    state: present
+  when:
+    - ansible_facts['os_family'] == "Darwin"
+  tags:
+    - node
+
+# - name: npmjs prefix
+#   shell: mkdir -p ~/.local/.npm-global
+#   tags:
+#   - node
+#
+# - name: add npmjs to path
+#   shell: PATH=~/.local/.npm-global/bin:$PATH
+#   tags:
+#   - node
+#
+# - name: npmjs global settings
+#   shell: npm config set prefix '~/.local/.npm-global'
+#   tags:
+#   - node
+#
+# - name: npmjs global settings export path in case I don't have dotfiles installed
+#   shell: export PATH=~/.local/.npm-global/bin:$PATH
+#   tags:
+#   - node
+
+
+# - name: Install N
+#   npm:
+#     name: n
+#     global: yes
+#   tags:
+#     - node
+#
+- name: Install correct version of Node
+  shell: N_PREFIX="~/.n" n 16
+  tags:
+    - node
