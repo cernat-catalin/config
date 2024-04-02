@@ -1,6 +1,18 @@
-- name: Install neovim, tmux, go, mongosh
+- name: Install neovim, tmux, go
   homebrew:
-    name: ["neovim", "tmux", "go", "mongosh"]
+    name: ["neovim", "tmux", "go"]
+    state: present
+  when:
+    - ansible_facts['os_family'] == "Darwin"
+  tags:
+    - utils
+
+    # By avoiding dependencies we don't install node.
+    # We don't want to install node since it overwrites the ones installed by n.
+- name: mongosh
+  homebrew:
+    name: ["mongosh"]
+    install_options: ignore-dependencies
     state: present
   when:
     - ansible_facts['os_family'] == "Darwin"
