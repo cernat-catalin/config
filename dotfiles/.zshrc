@@ -27,21 +27,23 @@ esac
 
 
 # The following line disables oh my zsh updates.
-# The start-up time of a shell session is greatly increased as a result.
+# The start-up time of a shell session is greatly increased as a result
 export DISABLE_AUTO_UPDATE=true
+
 export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="dieter"
 source $ZSH/oh-my-zsh.sh
-alias tmux="env TERM=xterm-256color tmux -2"
-alias rgf='rg --files | rg'
 stty -ixon
 
-export ANDROID_SDK_ROOT=/home/catalin/Android/Sdk
+# Setup ZSH prompt
+local pwd="%{$fg[red]%}%c%{$reset_color%}"
+PROMPT='${time} ${pwd} $(git_prompt_info)'
+
+alias tmux="env TERM=xterm-256color tmux -2"
+alias rgf='rg --files | rg'
 export BROWSER="/usr/bin/firefox"
 export N_PREFIX=~/.n
 
-local pwd="%{$fg[red]%}%c%{$reset_color%}"
-PROMPT='${time} ${pwd} $(git_prompt_info)'
 
 PATH=$PATH:~/.local/bin
 PATH=$PATH:~/.poetry/bin
@@ -51,7 +53,6 @@ PATH=$PATH:~/projects/zig_binary
 PATH=$PATH:~/projects/zls/zig-out/bin
 PATH=$PATH:~/.n/bin
 PATH=$PATH:~/.local/.npm-global/bin
-
 PATH=$PATH:~/tools/tmda/bin
 PATH=$PATH:~/tools/lucene-9.10.0/bin
 
@@ -102,11 +103,8 @@ json-format() {
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-if [[ -f /opt/homebrew/opt/chruby/share/chruby/chruby.sh ]]; then
-    source /opt/homebrew/opt/chruby/share/chruby/chruby.sh
-fi
-
-[ -f "/Users/catalincernat/.ghcup/env" ] && source "/Users/catalincernat/.ghcup/env" # ghcup-env
+# Haskell
+[ -f "/Users/catalincernat/.ghcup/env" ] && source "/Users/catalincernat/.ghcup/env"
 
 
 # History
@@ -136,13 +134,17 @@ bindkey -M vicmd "vv" edit-command-line
 # alias python='python3'
 # alias pip='pip3'
 
+# Setup pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
+# Setup rbenv
 eval "$(rbenv init - zsh)"
 
+# Setup sdkman
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
 # zprof
