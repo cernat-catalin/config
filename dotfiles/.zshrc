@@ -52,6 +52,9 @@ PATH=$PATH:~/projects/zls/zig-out/bin
 PATH=$PATH:~/.n/bin
 PATH=$PATH:~/.local/.npm-global/bin
 
+PATH=$PATH:~/tools/tmda/bin
+PATH=$PATH:~/tools/lucene-9.10.0/bin
+
 
 ##### Helpers #####
 
