@@ -5,3 +5,4 @@ Add to ansible setup
   - ssh keys
   - passwords
   - recovery keys
+Add `rbenv`, `pyenv`, `sdkman` to ansible tasks
