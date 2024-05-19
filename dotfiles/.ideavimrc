@@ -1,4 +1,5 @@
 " :actionlist in intellij to get a list of all actions
+" Invoke `IdeaVim: track action Ids` to see action IDs
 
 set relativenumber
 set number
@@ -8,9 +9,13 @@ set scrolloff=10
 
 let mapleader=" "
 
+nnoremap <leader>a :action GotoAction<cr>
 nnoremap <leader>k :action ManageRecentProjects<cr>
 nnoremap <leader>sf :action GotoFile<cr>
+nnoremap <leader>sg :action FindInPath<cr>
 nnoremap <leader>mr :action Maven.Reimport<cr>
 
 nnoremap <leader>vv :e ~/.ideavimrc<cr>
 nnoremap <leader>vr :source ~/.ideavimrc<cr>
+
+
