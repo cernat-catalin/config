@@ -28,7 +28,7 @@
   tags:
     - zsh
 
-- name: Check oh-my-zsh is alreayd installed
+- name: Check if oh-my-zsh is already installed
   stat:
     path: ~/.oh-my-zsh
   register: ohmyzsh

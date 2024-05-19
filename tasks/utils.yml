@@ -7,8 +7,8 @@
   tags:
     - utils
 
-    # By avoiding dependencies we don't install node.
-    # We don't want to install node since it overwrites the ones installed by n.
+# By avoiding dependencies we don't install node.
+# We don't want to install node since it overwrites the ones installed by n.
 - name: mongosh
   homebrew:
     name: ["mongosh"]
