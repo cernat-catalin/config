@@ -100,6 +100,10 @@ json-format() {
     jq '.' ${file} > ${file}.tmp && mv ${file}.tmp ${file}
 }
 
+url-encode() {
+  jq -rn --arg x "${1}" '$x|@uri'
+}
+
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
