@@ -146,6 +146,8 @@ eval "$(pyenv init -)"
 # Setup rbenv
 eval "$(rbenv init - zsh)"
 
+export DOCKER_HOST="unix:///Users/catalincernat/.docker/run/docker.sock"
+
 # Setup sdkman
 # THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"
