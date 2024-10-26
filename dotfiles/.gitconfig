@@ -28,3 +28,8 @@
   one = log --oneline
 [diff-so-fancy]
 	stripLeadingSymbols = false
+
+[url "git@github.com:"]
+    insteadOf = "https://github.com/"
+[protocol "file"]
+	allow = always
