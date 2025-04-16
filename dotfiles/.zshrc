@@ -57,6 +57,7 @@ PATH=$PATH:~/projects/zls/zig-out/bin
 PATH=$PATH:~/.local/.npm-global/bin
 PATH=$PATH:~/tools/tmda/bin
 PATH=$PATH:~/tools/lucene-9.10.0/bin
+#PATH=$PATH:~/.local/share/applications
 
 
 ##### Helpers #####
@@ -107,7 +108,7 @@ url-encode() {
 }
 
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf-key-bindings.zsh ] && source ~/.fzf-key-bindings.zsh
 
 # Haskell
 [ -f "/Users/catalincernat/.ghcup/env" ] && source "/Users/catalincernat/.ghcup/env"
@@ -146,7 +147,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 eval "$(pyenv init -)"
 
 # Setup rbenv
-eval "$(rbenv init - zsh)"
+# eval "$(rbenv init - zsh)"
 
 # export DOCKER_HOST="unix:///Users/catalincernat/.docker/run/docker.sock"
 

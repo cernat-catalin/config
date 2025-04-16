@@ -6,3 +6,8 @@ Add to ansible setup
   - passwords
   - recovery keys
 Add `rbenv`, `pyenv`, `sdkman` to ansible tasks
+
+
+- Make sure `stow` is installed
+- Add `git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm`
+- Add fzf to the install script
