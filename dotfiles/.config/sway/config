@@ -14,13 +14,16 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term foot
+set $term alacritty
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
 #set $menu dmenu_path | wmenu | xargs swaymsg exec --
 # set $menu wmenu | xargs swaymsg exec --
 set $menu fuzzel -b 000000ff -f SourceCodePro:size=12 -i Arc -w 30 -l 5
+
+# The name of the laptop display (fetched with `swaymsg -t get_outputs`)
+set $laptop_display eDP-1
 
 include /etc/sway/config-vars.d/*
 
@@ -221,7 +224,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # Screenshot
-bindsym $mod+Shift+p exec grimshot copy area
+bindsym $mod+Shift+p exec grimshot savecopy anything
 
 #
 # Status Bar:
@@ -258,6 +261,14 @@ default_floating_border none
 #font pango:monospace 0.001
 #titlebar_padding 1
 #titlebar_border_thickness 0
+
+# When the lid is closed, disable the laptop display
+#bindswitch lid:on output $laptop_display disable
+# When the lid is opened, enable the laptop display
+#bindswitch lid:off output $laptop_display enable
+
+# Rotate monitor in portrait mode
+output DP-7 transform 270
 
 
 include /etc/sway/config.d/*
