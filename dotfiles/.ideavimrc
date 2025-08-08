@@ -5,7 +5,7 @@ set relativenumber
 set number
 set visualbell
 set noerrorbells
-set scrolloff=10
+set scrolloff=0
 
 let mapleader=" "
 

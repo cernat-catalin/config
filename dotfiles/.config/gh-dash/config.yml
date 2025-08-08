@@ -4,8 +4,8 @@ prSections:
   type: null
 - title: Search & Ranking
   filters: is:open owner:PicnicSupermarket in:title 'SR-'
-- title: Query Understanding
-  filters: is:open owner:PicnicSupermarket author:lucaprisciantelli
+- title: Machine Learning
+  filters: is:open owner:PicnicSupermarket author:lucaprisciantelli author:job-almekinders
 - title: Needs My Review
   filters: is:open review-requested:@me
   type: null

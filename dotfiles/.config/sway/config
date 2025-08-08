@@ -39,14 +39,30 @@ output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
 ### Idle configuration
+
+
+set $lock swaylock \
+	--screenshots \
+	--clock \
+	--indicator \
+	--indicator-radius 100 \
+	--indicator-thickness 7 \
+	--effect-blur 7x5 \
+	--effect-vignette 0.5:0.5 \
+	--ring-color 00aa00 \
+	--key-hl-color 00d500 \
+	--line-color 008000 \
+	--inside-color 00000088 \
+	--separator-color 00000000 \
+	--grace 2 \
+	--fade-in 0.2
+
 exec swayidle -w \
-         timeout 1000 'swaylock -f -c 000000' \
+         timeout 1000 $lock \
          timeout 1500 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
-         before-sleep 'swaylock -f -c 000000'
-#
-# This will lock your screen after 300 seconds of inactivity, then turn off
-# your displays after another 300 seconds, and turn your screens back on when
-# resumed. It will also lock your screen before your computer goes to sleep.
+         beofre-sleep $lock
+
+bindswitch --reload --locked lid:on exec $lock
 
 
 # Input Configurations
@@ -56,11 +72,12 @@ exec swayidle -w \
 input "type:keyboard" {
    xkb_options caps:escape
    # Repeat delay value is in ms
-   repeat_delay 225
+   repeat_delay 200
    # Repeat rate is in characters per second
-   # 33/s = repeat every 30ms
-   repeat_rate 33
+   # 45/s = repeat every 25ms
+   repeat_rate 40
 }
+
 
 input "type:touchpad" {
    natural_scroll enabled
@@ -85,7 +102,7 @@ input "1133:16467:Logitech_G900" {
     bindsym $mod+Return exec $term
 
     # Lock screens
-    bindsym $mod+o exec swaylock -f -c 000000
+    bindsym $mod+o exec $lock
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -152,8 +169,6 @@ input "1133:16467:Logitech_G900" {
     bindsym $mod+Shift+4 move container to workspace number 4
     bindsym $mod+Shift+5 move container to workspace number 5
     bindsym $mod+Shift+6 move container to workspace number 6
-    bindsym $mod+Shift+7 move container to workspace number 7
-    bindsym $mod+Shift+8 move container to workspace number 8
     bindsym $mod+Shift+9 move container to workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
@@ -225,6 +240,7 @@ bindsym $mod+r mode "resize"
 
 # Screenshot
 bindsym $mod+Shift+p exec grimshot savecopy anything
+bindsym $mod+Shift+s exec grimshot savecopy active
 
 #
 # Status Bar:
@@ -267,8 +283,12 @@ default_floating_border none
 # When the lid is opened, enable the laptop display
 #bindswitch lid:off output $laptop_display enable
 
-# Rotate monitor in portrait mode
+# Rotate monitor in portrait mode (fetched with `swaymsg -t get_outputs`)
 output DP-7 transform 270
+
+# Exclude flameshot from tiling
+for_window [app_id="flameshot"] floating enable
+
 
 
 include /etc/sway/config.d/*
