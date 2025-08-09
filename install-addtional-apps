@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+echo "Sync package dataabse..."
+sudo pacman -Sy
+
+echo "Installing firefox..."
+yay -S --noconfirm --needed firefox
+
+echo "Installing tmux..."
+yay -S --noconfirm --needed tmux
+
+echo "Installing stow..."
+yay -S --noconfirm --needed stow
+
+echo "Installing git diff-so-fancy..."
+yay -S --noconfirm --needed diff-so-fancy
+
+if ! gh auth status &>/dev/null; then
+  echo "Authenticating GitHub CLI..."
+  gh auth login
+fi
+
+if ! gh extension list | grep -q gh-dash; then
+  echo "Install gh-dash..."
+  gh extension install dlvhdr/gh-dash
+fi
+
+echo "Installing go..."
+yay -S --noconfirm --needed go

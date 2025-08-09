@@ -1,16 +1,31 @@
 #!/usr/bin/env bash
 
-echo "Stowing personal dotfiles"
-stow -t ~ dotfiles
+if ! command -v stow &>/dev/null; then
+  echo "Error: GNU Stow is not installed. Please install it and try again."
+  exit 1
+fi
 
-echo "Stowing personal bins"
+if [[ -n $(git status --porcelain) ]]; then
+  echo "There are uncommitted changes. Stopping script."
+  exit 1
+fi
+
+echo "Stowing personal dotfiles..."
+stow --adopt -t ~ dotfiles
+
+echo "Stowing personal bins..."
+mkdir -p ~/.local/bin
 stow -t ~/.local/bin bin
 
+echo "Stowing perosnal applications..."
+stow --adopt -t ~/.local/share/applications applications
 
 pushd ./picnic-config/
-echo "Stowing picnic dotfiles"
-stow -t ~ dotfiles
+echo "Stowing Picnic dotfiles..."
+stow --adopt -t ~ dotfiles
 
-echo "Stowing picnic bins"
+echo "Stowing Picnic bins..."
 stow -t ~/.local/bin bin
 popd
+
+git restore .
