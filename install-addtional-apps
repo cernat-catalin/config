@@ -30,3 +30,9 @@ yay -S --noconfirm --needed go
 
 echo "Installing SDKMAN..."
 curl -s "https://get.sdkman.io" | bash
+
+echo "Installing aws-cli..."
+yay -S --noconfirm --needed aws-cli-bin
+
+echo "Installing amazon-ecr-credential-helper..."
+yay -S --noconfirm --needed amazon-ecr-credential-helper
