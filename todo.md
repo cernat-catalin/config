@@ -1,2 +1,0 @@
-- Install SDKman
-- Change default browser to Firefox (but not for webapps)

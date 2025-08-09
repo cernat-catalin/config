@@ -27,3 +27,6 @@ fi
 
 echo "Installing go..."
 yay -S --noconfirm --needed go
+
+echo "Installing SDKMAN..."
+curl -s "https://get.sdkman.io" | bash

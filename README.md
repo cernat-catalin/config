@@ -1,16 +1,9 @@
-# Config Files
+# Configuration files on top of default Omarchy
+See more at: https://github.com/basecamp/omarchy
 
-## Install
+## Installation
+
 ```sh
-brew install ansible
-
-ansible-playbook --ask-become-pass local.yml
-
-ansible-playbook --ask-become-pass local.yml -t <tag>
-```
-
-## Alacritty
-Macos installation
-```sh
-brew install --cask alacritty --no-quarantine
+./install-addtional-apps
+./install-dotfiles
 ```
