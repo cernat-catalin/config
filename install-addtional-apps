@@ -28,11 +28,24 @@ fi
 echo "Installing go..."
 yay -S --noconfirm --needed go
 
-echo "Installing SDKMAN..."
-curl -s "https://get.sdkman.io" | bash
+if ! command -v sdk &>/dev/null; then
+  echo "Installing SDKMAN..."
+  curl -s "https://get.sdkman.io" | bash
+fi
 
 echo "Installing aws-cli..."
 yay -S --noconfirm --needed aws-cli-bin
 
 echo "Installing amazon-ecr-credential-helper..."
 yay -S --noconfirm --needed amazon-ecr-credential-helper
+
+if ! command -v pyenv &>/dev/null; then
+  echo "Installing pyenv..."
+  curl -fsSL https://pyenv.run | bash
+  yay -S --noconfirm --needed tk
+fi
+
+if ! command -v poetry &>/dev/null; then
+  echo "Installing poetry..."
+  curl -sSL https://install.python-poetry.org | python3 -
+fi
