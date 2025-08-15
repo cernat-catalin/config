@@ -57,3 +57,6 @@ if ! command -v nvm &>/dev/null; then
   echo "Installing NVM..."
   curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
 fi
+
+echo "Installing Mongosh..."
+yay -S --noconfirm --needed mongosh-bin
