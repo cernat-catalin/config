@@ -60,3 +60,9 @@ fi
 
 echo "Installing Mongosh..."
 yay -S --noconfirm --needed mongosh-bin
+
+echo "Installing kubectl..."
+yay -S --noconfirm --needed kubectl-bin
+
+echo "Installing kubelogin..."
+yay -S --noconfirm --needed kubelogin
