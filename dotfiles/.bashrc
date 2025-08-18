@@ -39,7 +39,7 @@ git_prompt_info() {
 # \W - Basename of the current directory
 # \[\e[0m\] - Reset color (non-printing)
 # \$ - Prompt symbol ($ for user, # for root)
-PS1=' \[\e[31m\]\W\[\e[0m\] $(git_prompt_info) \$ '
+PS1='\[\e[31m\]\W\[\e[0m\] $(git_prompt_info) \$ '
 
 # Set your preferred editor
 export VISUAL=nvim
