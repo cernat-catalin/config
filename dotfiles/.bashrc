@@ -35,12 +35,11 @@ git_prompt_info() {
 }
 
 # Set the prompt using BASH's special characters
-# \t - Time (HH:MM:SS)
 # \[\e[31m\] - Start red color (non-printing)
 # \W - Basename of the current directory
 # \[\e[0m\] - Reset color (non-printing)
 # \$ - Prompt symbol ($ for user, # for root)
-PS1='\t \[\e[31m\]\W\[\e[0m\] $(git_prompt_info) \$ '
+PS1='\[\e[31m\]\W\[\e[0m\] $(git_prompt_info) \$ '
 
 # Set your preferred editor
 export VISUAL=nvim
