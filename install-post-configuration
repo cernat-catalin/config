@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+# Ensure we have all applications in the path
+source ~/.bashrc
+
+echo "Installing java with SDKMAN..."
+sdk install java 21.0.5-graal
+sdk use java 21.0.5-graal
+
+echo "Installing mvnd with SDKMAN..."
+sdk install mvnd 1.0.2
+sdk use mvnd 1.0.2
+
+echo "Installing python 3.12 with pyenv..."
+pyenv install --skip-existing 3.12
+pyenv global 3.12
+
+echo "Installing node 20.11.1 with nvm..."
+nvm install 20.11.1
+nvm use 20.11.1
+npm install --global yarn
