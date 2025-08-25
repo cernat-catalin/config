@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eE
+
 if ! command -v stow &>/dev/null; then
   echo "Error: GNU Stow is not installed. Please install it and try again."
   exit 1

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -eE
+
 # Ensure we have all applications in the path
 source ~/.bashrc
 
