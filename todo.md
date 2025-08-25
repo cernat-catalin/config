@@ -1,2 +1,3 @@
 - Unified `monitors.conf` for all machines
 - Remove pre-installed app that I don't need
+- Add Picnic wifi configuration (at least a guide)
