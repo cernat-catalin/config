@@ -53,7 +53,7 @@ if ! command -v poetry &>/dev/null; then
 fi
 
 echo "Installing Slack..."
-yay -S --noconfirm --needed slack-desktop
+yay -S --noconfirm --needed slack-desktop-wayland
 
 if ! command -v nvm &>/dev/null; then
   echo "Installing NVM..."
