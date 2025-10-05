@@ -2,7 +2,7 @@
 Version=1.0
 Name=Proxyman
 Comment=Proxyman
-Exec=/home/ccernat/.local/share/proxyman/Proxyman-3.1.0.AppImage --no-sandbox
+Exec=/home/ccernat/.local/share/proxyman/Proxyman-3.2.0.AppImage --no-sandbox
 Terminal=false
 Type=Application
 Icon=/home/ccernat/.local/share/applications/icons/Proxyman.png
