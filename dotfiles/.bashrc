@@ -44,6 +44,8 @@ set -o vi
 # Bind 'vv' in vi command mode to edit the current command line
 bind -m vi-command '"vv": edit-and-execute-command'
 
+export PATH="$HOME/.local/bin:$PATH"
+
 # Setup pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
