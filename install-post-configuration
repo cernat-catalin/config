@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eE
+set -eEuo pipefail
 
 echo "Configuring tools"
 # Setup SDKMAN
@@ -9,11 +9,12 @@ export SDKMAN_DIR="$HOME/.sdkman"
 
 # Setup Pyenv
 export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+[[ -d "$PYENV_ROOT/bin" ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
 # Setup NVM
-. "$NVM_DIR/nvm.sh"
+export NVM_DIR="$HOME/.config/nvm"
+[[ -s "$NVM_DIR/nvm.sh" ]] && . "$NVM_DIR/nvm.sh"
 
 echo "Installing java with SDKMAN..."
 sdk install java 21.0.5-graal

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-set -eE
+set -eEuo pipefail
 
 echo "Upgrade system..."
-sudo pacman -Syu
+sudo pacman -Syu --noconfirm
 
 echo "Installing firefox..."
 yay -S --noconfirm --needed firefox

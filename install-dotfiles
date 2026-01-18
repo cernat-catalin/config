@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -eE
+set -eEuo pipefail
 
 if ! command -v stow &>/dev/null; then
   echo "Error: GNU Stow is not installed. Please install it and try again."
@@ -19,15 +19,19 @@ echo "Stowing personal bins..."
 mkdir -p ~/.local/bin
 stow -t ~/.local/bin bin
 
-echo "Stowing perosnal applications..."
+echo "Stowing personal applications..."
 stow --adopt -t ~/.local/share/applications applications
 
-pushd ./picnic-config/
-echo "Stowing Picnic dotfiles..."
-stow --adopt -t ~ dotfiles
+if [[ -d "./picnic-config" ]]; then
+  pushd ./picnic-config/
+  echo "Stowing Picnic dotfiles..."
+  stow --adopt -t ~ dotfiles
 
-echo "Stowing Picnic bins..."
-stow -t ~/.local/bin bin
-popd
+  echo "Stowing Picnic bins..."
+  stow -t ~/.local/bin bin
+  popd
+else
+  echo "Warning: ./picnic-config directory not found, skipping Picnic configuration."
+fi
 
 git restore .
