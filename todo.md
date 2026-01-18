@@ -1,4 +1,3 @@
 - Unified `monitors.conf` for all machines
-- Remove pre-installed app that I don't need
-- Add Picnic wifi configuration (at least a guide)
+- Remove pre-installed apps that I don't need
 - Add helmfile setup. This is done using the infra repository: `https://github.com/PicnicSupermarket/picnic-infra-kubernetes`
