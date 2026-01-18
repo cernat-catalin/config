@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Gemini
+Comment=Gemini
+Exec=chromium --new-window --ozone-platform=wayland --app="https://gemini.google.com/app" --name="Gemini" --class="Gemini"
+Terminal=false
+Type=Application
+Icon=/home/ccernat/.local/share/applications/icons/Gemini.png
+StartupNotify=true

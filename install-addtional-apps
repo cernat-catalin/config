@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+
+set -eE
+
+echo "Upgrade system..."
+sudo pacman -Syu
+
+echo "Installing firefox..."
+yay -S --noconfirm --needed firefox
+
+echo "Installing tmux..."
+yay -S --noconfirm --needed tmux
+
+echo "Installing stow..."
+yay -S --noconfirm --needed stow
+
+echo "Installing git diff-so-fancy..."
+yay -S --noconfirm --needed diff-so-fancy
+
+if ! gh auth status &>/dev/null; then
+  echo "Authenticating GitHub CLI..."
+  gh auth login
+fi
+
+if ! gh extension list | grep -q gh-dash; then
+  echo "Install gh-dash..."
+  gh extension install dlvhdr/gh-dash
+fi
+
+echo "Installing go..."
+yay -S --noconfirm --needed go
+
+if ! command -v sdk &>/dev/null; then
+  echo "Installing SDKMAN..."
+  curl -s "https://get.sdkman.io" | bash
+fi
+
+echo "Installing aws-cli..."
+yay -S --noconfirm --needed aws-cli-bin
+
+echo "Installing amazon-ecr-credential-helper..."
+yay -S --noconfirm --needed amazon-ecr-credential-helper
+
+if ! command -v pyenv &>/dev/null; then
+  echo "Installing pyenv..."
+  curl -fsSL https://pyenv.run | bash
+  yay -S --noconfirm --needed tk
+fi
+
+if ! command -v poetry &>/dev/null; then
+  echo "Installing poetry..."
+  curl -sSL https://install.python-poetry.org | python3 -
+fi
+
+echo "Installing Slack..."
+yay -S --noconfirm --needed slack-desktop-wayland
+
+if ! command -v nvm &>/dev/null; then
+  echo "Installing NVM..."
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+fi
+
+echo "Installing Lastpass cli..."
+yay -S --noconfirm --needed lastpass-cli
+
+echo "Installing Mongosh..."
+yay -S --noconfirm --needed mongosh-bin
+
+echo "Installing kubectl..."
+yay -S --noconfirm --needed kubectl-bin
+
+echo "Installing kubelogin..."
+yay -S --noconfirm --needed kubelogin
+
+echo "Installing zig..."
+yay -S --noconfirm --needed zig-bin

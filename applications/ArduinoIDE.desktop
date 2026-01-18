@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Arduino IDE
+Comment=Arduino IDE
+Exec=/home/ccernat/.local/share/arduino_ide/arduino-ide_2.3.6_Linux_64bit.AppImage --no-sandbox --enable-features=UseOzonePlatform --ozone-platform=x11
+Terminal=false
+Type=Application
+Icon=/home/ccernat/.local/share/applications/icons/arduino_ide.svg
+StartupNotify=true

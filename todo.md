@@ -1,13 +1,4 @@
-Add to ansible setup
-- Check linux setup is correct
-- Add alacritty
-- Store encrypted secrets with ansible vault (just to be safe, make the repo private)
-  - ssh keys
-  - passwords
-  - recovery keys
-Add `rbenv`, `pyenv`, `sdkman` to ansible tasks
-
-
-- Make sure `stow` is installed
-- Add `git clone https://github.com/lukechilds/zsh-nvm ~/.oh-my-zsh/custom/plugins/zsh-nvm`
-- Add fzf to the install script
+- Unified `monitors.conf` for all machines
+- Remove pre-installed app that I don't need
+- Add Picnic wifi configuration (at least a guide)
+- Add helmfile setup. This is done using the infra repository: `https://github.com/PicnicSupermarket/picnic-infra-kubernetes`
