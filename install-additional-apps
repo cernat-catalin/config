@@ -74,3 +74,6 @@ yay -S --noconfirm --needed kubelogin
 
 echo "Installing zig..."
 yay -S --noconfirm --needed zig-bin
+
+echo "Installing miller"
+yay -S --noconfirm --needed miller
