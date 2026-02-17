@@ -2,17 +2,17 @@
 
 set -eEuo pipefail
 
-echo "Configuring tools"
-# Setup SDKMAN
+echo "Configuring SDKMAN..."
+# # Setup SDKMAN
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
-# Setup Pyenv
+echo "Configuring Pyenv..."
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d "$PYENV_ROOT/bin" ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 
-# Setup NVM
+echo "Configuring NVM..."
 export NVM_DIR="$HOME/.config/nvm"
 [[ -s "$NVM_DIR/nvm.sh" ]] && . "$NVM_DIR/nvm.sh"
 
@@ -32,3 +32,8 @@ echo "Installing node 20.19.0 with nvm..."
 nvm install 20.19.0
 nvm use 20.19.0
 npm install --global yarn
+
+echo "Creating Obsidian Claude symlink..."
+# Get the absolute path to the directory where the script is located
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
+cp -f "$SCRIPT_DIR/ai_instructions/OBSIDIAN_CLAUDE.md" "$HOME/Documents/obsidian_notes/CLAUDE.md"

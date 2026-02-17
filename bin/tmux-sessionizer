@@ -4,7 +4,10 @@ if [[ $# -eq 1 ]]; then
   same_pane=true
 fi
 
-selected=$(find ~/projects ~/work-projects ~/tmp -mindepth 1 -maxdepth 1 -type d 2>/dev/null | fzf)
+selected=$({
+  find ~/projects ~/work-projects ~/tmp -mindepth 1 -maxdepth 1 -type d 2>/dev/null
+  echo "$HOME/Documents/obsidian_notes"
+} | fzf)
 
 if [[ -z $selected ]]; then
   exit 0
