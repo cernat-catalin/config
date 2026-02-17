@@ -34,6 +34,10 @@ git_prompt_info() {
   fi
 }
 
+rgf() {
+  rg --files 2>/dev/null | rg "$1"
+}
+
 # Set your preferred editor
 export VISUAL=nvim
 export EDITOR="$VISUAL" # Good practice to set both
