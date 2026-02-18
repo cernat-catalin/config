@@ -74,3 +74,6 @@ yay -S --noconfirm --needed kubelogin
 
 echo "Installing zig..."
 yay -S --noconfirm --needed zig-bin
+
+echo "Installing k9s..."
+yay -S --noconfirm --needed k9s
