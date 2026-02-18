@@ -77,3 +77,7 @@ yay -S --noconfirm --needed zig-bin
 
 echo "Installing miller"
 yay -S --noconfirm --needed miller
+
+echo "Installing k9s..."
+yay -S --noconfirm --needed k9s
+
