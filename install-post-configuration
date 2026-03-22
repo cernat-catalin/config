@@ -41,3 +41,6 @@ cp -f "$SCRIPT_DIR/ai_instructions/OBSIDIAN_CLAUDE.md" "$HOME/Documents/obsidian
 echo "Installing Pi coding harness..."
 npm install --global @mariozechner/pi-coding-agent
 
+echo "Installing gemini-cli..."
+npm install -g @google/gemini-cli
+
