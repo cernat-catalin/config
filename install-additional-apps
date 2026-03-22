@@ -39,7 +39,8 @@ echo "Installing aws-cli..."
 yay -S --noconfirm --needed aws-cli-bin
 
 echo "Installing amazon-ecr-credential-helper..."
-yay -S --noconfirm --needed amazon-ecr-credential-helper
+# export GOPROXY=direct
+# yay -S --noconfirm --needed amazon-ecr-credential-helper
 
 if ! command -v pyenv &>/dev/null; then
   echo "Installing pyenv..."

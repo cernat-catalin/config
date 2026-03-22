@@ -3,9 +3,20 @@
 set -eEuo pipefail
 
 echo "Configuring SDKMAN..."
-# # Setup SDKMAN
+# Setup SDKMAN
+set +u # Disable strict more, otherwise SDKMAN crashes because it rerefences $ZSH_VERSION
 export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+echo "Installing java with SDKMAN..."
+sdk install java 21.0.5-graal
+sdk use java 21.0.5-graal
+
+echo "Installing mvnd with SDKMAN..."
+sdk install mvnd 1.0.2
+sdk use mvnd 1.0.2
+
+set -u
 
 echo "Configuring Pyenv..."
 export PYENV_ROOT="$HOME/.pyenv"
@@ -15,14 +26,6 @@ eval "$(pyenv init -)"
 echo "Configuring NVM..."
 export NVM_DIR="$HOME/.config/nvm"
 [[ -s "$NVM_DIR/nvm.sh" ]] && . "$NVM_DIR/nvm.sh"
-
-echo "Installing java with SDKMAN..."
-sdk install java 21.0.5-graal
-sdk use java 21.0.5-graal
-
-echo "Installing mvnd with SDKMAN..."
-sdk install mvnd 1.0.2
-sdk use mvnd 1.0.2
 
 echo "Installing python 3.12 with pyenv..."
 pyenv install --skip-existing 3.12
