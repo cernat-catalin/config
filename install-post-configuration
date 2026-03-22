@@ -34,3 +34,6 @@ npm install --global yarn
 
 echo "Installing Pi coding harness..."
 npm install --global @mariozechner/pi-coding-agent
+
+echo "Installing gemini-cli..."
+npm install -g @google/gemini-cli
