@@ -59,7 +59,7 @@ lazy_nvm_load() {
   # Check if NVM_DIR is set and valid
   if [ -s "$NVM_DIR/nvm.sh" ]; then
     # Unset the temporary alias/function to prevent a loop
-    unset -f nvm node npm npx
+    unset -f nvm node npm npx pi
 
     # Source the official NVM scripts
     . "$NVM_DIR/nvm.sh"
@@ -78,6 +78,11 @@ nvm() { lazy_nvm_load && nvm "$@"; }
 node() { lazy_nvm_load && node "$@"; }
 npm() { lazy_nvm_load && npm "$@"; }
 npx() { lazy_nvm_load && npx "$@"; }
+pi() { lazy_nvm_load && pi "$@"; }
+
+# Claude Code
+alias claude-picnic="CLAUDE_CONFIG_DIR=~/.claude-picnic claude"
+alias claude-personal="CLAUDE_CONFIG_DIR=~/.claude-personal claude"
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="$HOME/.sdkman"

@@ -37,3 +37,7 @@ echo "Creating Obsidian Claude symlink..."
 # Get the absolute path to the directory where the script is located
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 cp -f "$SCRIPT_DIR/ai_instructions/OBSIDIAN_CLAUDE.md" "$HOME/Documents/obsidian_notes/CLAUDE.md"
+
+echo "Installing Pi coding harness..."
+npm install --global @mariozechner/pi-coding-agent
+

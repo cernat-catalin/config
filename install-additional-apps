@@ -81,3 +81,6 @@ yay -S --noconfirm --needed miller
 echo "Installing k9s..."
 yay -S --noconfirm --needed k9s
 
+echo "Installing Claude Code..."
+curl -fsSL https://claude.ai/install.sh | bash
+
