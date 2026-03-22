@@ -6,4 +6,5 @@ See more at: https://github.com/basecamp/omarchy
 ```sh
 ./install-addtional-apps
 ./install-dotfiles
+./install-post-configuration
 ```
