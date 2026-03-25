@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Claude Code Cheat Sheet
+Comment=Claude Code keyboard shortcuts and commands reference
+Exec=chromium --new-window --ozone-platform=wayland --app="file:///home/ccernat/.local/share/applications/cc-cheatsheet.html" --name="ClaudeCodeCheatSheet" --class="ClaudeCodeCheatSheet"
+Terminal=false
+Type=Application
+Icon=/home/ccernat/.local/share/applications/icons/cc-cheatsheet.svg
+StartupNotify=true
