@@ -6,6 +6,7 @@
 [core]
 	editor = nvim
 	pager = diff-so-fancy | less --tabs=4 -RFX
+	excludesfile = /home/ccernat/.gitignore_global
 [interactive]
 	diffFilter = diff-so-fancy --patch
 [color]
