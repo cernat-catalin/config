@@ -89,5 +89,3 @@ export SDKMAN_DIR="$HOME/.sdkman"
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 [ -f "/home/ccernat/.ghcup/env" ] && . "/home/ccernat/.ghcup/env" # ghcup-env
-
-. "$HOME/.local/share/../bin/env"
