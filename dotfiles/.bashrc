@@ -59,7 +59,7 @@ lazy_nvm_load() {
   # Check if NVM_DIR is set and valid
   if [ -s "$NVM_DIR/nvm.sh" ]; then
     # Unset the temporary alias/function to prevent a loop
-    unset -f nvm node npm npx pi
+    unset -f nvm node npm npx pi yarn
 
     # Source the official NVM scripts
     . "$NVM_DIR/nvm.sh"
@@ -79,6 +79,7 @@ node() { lazy_nvm_load && node "$@"; }
 npm() { lazy_nvm_load && npm "$@"; }
 npx() { lazy_nvm_load && npx "$@"; }
 pi() { lazy_nvm_load && pi "$@"; }
+yarn() { lazy_nvm_load && yarn "$@"; }
 
 # Claude Code
 alias claude-picnic="CLAUDE_CONFIG_DIR=~/.claude-picnic claude"
