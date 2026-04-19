@@ -36,14 +36,8 @@ nvm install 20.19.0
 nvm use 20.19.0
 npm install --global yarn
 
-echo "Creating Obsidian Claude symlink..."
-# Get the absolute path to the directory where the script is located
-SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
-cp -f "$SCRIPT_DIR/ai_instructions/OBSIDIAN_CLAUDE.md" "$HOME/Documents/obsidian_notes/CLAUDE.md"
-
 echo "Installing Pi coding harness..."
 npm install --global @mariozechner/pi-coding-agent
 
 echo "Installing gemini-cli..."
 npm install -g @google/gemini-cli
-
