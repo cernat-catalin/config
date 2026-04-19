@@ -85,3 +85,18 @@ yay -S --noconfirm --needed k9s
 echo "Installing Claude Code..."
 curl -fsSL https://claude.ai/install.sh | bash
 
+if ! command -v pipx &>/dev/null; then
+  echo "Installing pipx..."
+  yay -S --noconfirm --needed python-pipx
+fi
+
+if ! command -v pre-commit &>/dev/null; then
+  echo "Installing pre-commit..."
+  pipx install pre-commit
+fi
+
+if ! command -v detect-secrets &>/dev/null; then
+  echo "Installing detect-secrets..."
+  pipx install detect-secrets
+fi
+
