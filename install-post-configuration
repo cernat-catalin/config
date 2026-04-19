@@ -41,3 +41,17 @@ npm install --global @mariozechner/pi-coding-agent
 
 echo "Installing gemini-cli..."
 npm install -g @google/gemini-cli
+
+echo "Setting up detect-secrets pre-commit hooks..."
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+for repo in "$SCRIPT_DIR" "$SCRIPT_DIR/picnic-config"; do
+  if [[ -d "$repo" ]]; then
+    pushd "$repo"
+    if [[ ! -f .secrets.baseline ]]; then
+      echo "Initializing .secrets.baseline in $repo..."
+      detect-secrets scan > .secrets.baseline
+    fi
+    pre-commit install
+    popd
+  fi
+done
