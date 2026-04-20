@@ -4,9 +4,17 @@ return {
 		servers = {
 			basedpyright = {
 				settings = {
-					python = {
+					basedpyright = {
 						analysis = {
-							typeCheckingMode = "off",
+							typeCheckingMode = "standard",
+							diagnosticSeverityOverrides = {
+								reportUnknownParameterType = "none",
+								reportUnknownArgumentType = "none",
+								reportUnknownLambdaType = "none",
+								reportUnknownVariableType = "none",
+								reportUnknownMemberType = "none",
+								reportMissingTypeStubs = "none",
+							},
 						},
 					},
 				},
