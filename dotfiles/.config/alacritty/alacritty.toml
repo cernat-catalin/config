@@ -19,7 +19,11 @@ bindings = [
 { key = "F11", action = "ToggleFullscreen" },
 { key = "Insert", mods = "Shift", action = "Paste" },
 { key = "Insert", mods = "Control", action = "Copy" },
-  { key = "Return", mods = "Shift", chars = "\u001B\r" }
+  { key = "Return", mods = "Shift", chars = "\u001B\r" },
+  # tmux extended-keys uses XTerm modifyOtherKeys; Alacritty only supports the
+  # kitty keyboard protocol, so C-Tab is indistinguishable from Tab without this.
+  # \e[27;5;9~ = modifyOtherKeys format: modifier 5 (Ctrl), keycode 9 (Tab).
+  { key = "Tab", mods = "Control", chars = "\u001b[27;5;9~" }
 ]
 
 [terminal]
