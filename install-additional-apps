@@ -105,3 +105,4 @@ fi
 
 echo "Installing jsonnet..."
 yay -S --noconfirm go-jsonnet
+yay -S --noconfirm jsonnet-bundler-bin
