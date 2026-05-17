@@ -5,5 +5,15 @@
     "playwright@claude-plugins-official": true
   },
   "effortLevel": "medium",
-  "skipDangerousModePermissionPrompt": true
+  "skipDangerousModePermissionPrompt": true,
+  "mcpServers": {
+    "zotero": {
+      "type": "stdio",
+      "command": "zotero-mcp",
+      "args": [],
+      "env": {
+        "ZOTERO_LOCAL": "true"
+      }
+    }
+  }
 }
