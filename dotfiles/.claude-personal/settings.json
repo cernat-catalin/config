@@ -12,7 +12,7 @@
       "command": "zotero-mcp",
       "args": [],
       "env": {
-        "ZOTERO_LOCAL": "true"
+        "ZOTERO_LOCAL": "false"
       }
     }
   }
