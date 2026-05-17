@@ -1,0 +1,1 @@
+../../picnic-config/dotfiles/.claude-picnic/CLAUDE.md
