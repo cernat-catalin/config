@@ -1,1 +1,1 @@
-../../picnic-config/dotfiles/.claude-picnic/CLAUDE.md
+../../picnic-config/dotfiles/.pi/agent/AGENTS.md
