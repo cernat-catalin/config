@@ -28,6 +28,14 @@ o.bind("SUPER + SHIFT + S", "Google Maps", { webapp = "https://maps.google.com/"
 o.bind("SUPER + SHIFT + X", "X", { webapp = "https://x.com/" })
 o.bind("SUPER + SHIFT + ALT + X", "X Post", { webapp = "https://x.com/compose/post" })
 
+-- Restore vim-style window focus with SUPER+h/j/k/l.
+hl.unbind("SUPER + J")
+hl.unbind("SUPER + L")
+o.bind("SUPER + H", "Focus left window", hl.dsp.focus({ direction = "l" }))
+o.bind("SUPER + J", "Focus down window", hl.dsp.focus({ direction = "d" }))
+o.bind("SUPER + K", "Focus up window", hl.dsp.focus({ direction = "u" }))
+o.bind("SUPER + L", "Focus right window", hl.dsp.focus({ direction = "r" }))
+
 -- Move current workspace to next monitor.
 o.bind("SUPER + X", "Move workspace to next monitor", hl.dsp.workspace.move({ monitor = "+1" }))
 
