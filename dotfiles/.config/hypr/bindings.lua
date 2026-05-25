@@ -10,7 +10,7 @@ o.bind("SUPER + SHIFT + M", "Music", { omarchy = "or-focus spotify" })
 o.bind("SUPER + SHIFT + ALT + M", "Music TUI", { tui = "cliamp", focus = true })
 o.bind("SUPER + SHIFT + N", "Editor", { omarchy = "editor" })
 o.bind("SUPER + SHIFT + D", "Docker", { tui = "lazydocker" })
-o.bind("SUPER + SHIFT + G", "Signal", { launch = "signal-desktop", focus = "^signal$" })
+o.bind("SUPER + SHIFT + G", "Gemini", { webapp = "https://gemini.google.com/app" })
 o.bind("SUPER + SHIFT + O", "Obsidian", { launch = "obsidian", focus = "^obsidian$" })
 o.bind("SUPER + SHIFT + W", "Typora", { launch = "typora --enable-wayland-ime" })
 o.bind("SUPER + SHIFT + SLASH", "Passwords", { launch = "1password" })
@@ -27,6 +27,10 @@ o.bind("SUPER + SHIFT + P", "Google Photos", { webapp = "https://photos.google.c
 o.bind("SUPER + SHIFT + S", "Google Maps", { webapp = "https://maps.google.com/", focus = true })
 o.bind("SUPER + SHIFT + X", "X", { webapp = "https://x.com/" })
 o.bind("SUPER + SHIFT + ALT + X", "X Post", { webapp = "https://x.com/compose/post" })
+
+-- Restore toggle-to-previous-workspace-per-monitor behavior for SUPER+TAB.
+hl.unbind("SUPER + TAB")
+o.bind("SUPER + TAB", "Toggle previous workspace (per monitor)", hl.dsp.focus({ workspace = "previous_per_monitor" }))
 
 -- Add extra bindings below.
 -- o.bind("SUPER + SHIFT + R", "SSH", "alacritty -e ssh your-server")

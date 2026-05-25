@@ -109,3 +109,9 @@ yay -S --noconfirm jsonnet-bundler-bin
 
 echo "Installing Zotero..."
 yay -S --noconfirm zotero
+
+echo "Installing Anki..."
+yay -S --noconfirm --needed anki
+
+echo "Installing Protege..."
+yay -S --noconfirm protege
