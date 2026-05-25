@@ -28,6 +28,9 @@ o.bind("SUPER + SHIFT + S", "Google Maps", { webapp = "https://maps.google.com/"
 o.bind("SUPER + SHIFT + X", "X", { webapp = "https://x.com/" })
 o.bind("SUPER + SHIFT + ALT + X", "X Post", { webapp = "https://x.com/compose/post" })
 
+-- Move current workspace to next monitor.
+o.bind("SUPER + X", "Move workspace to next monitor", hl.dsp.workspace.move({ monitor = "+1" }))
+
 -- Restore toggle-to-previous-workspace-per-monitor behavior for SUPER+TAB.
 hl.unbind("SUPER + TAB")
 o.bind("SUPER + TAB", "Toggle previous workspace (per monitor)", hl.dsp.focus({ workspace = "previous_per_monitor" }))
