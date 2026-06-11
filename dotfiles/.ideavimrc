@@ -14,5 +14,6 @@ nnoremap <leader>k :action ManageRecentProjects<cr>
 nnoremap <leader><leader> :action GotoFile<cr>
 nnoremap <leader>sg :action FindInPath<cr>
 nnoremap <leader>mr :action Maven.Reimport<cr>
+nnoremap <leader>gd :action Compare.SameVersion<cr>
 nnoremap <leader>vv :e ~/.ideavimrc<cr>
 nnoremap <leader>vr :source ~/.ideavimrc<cr>
